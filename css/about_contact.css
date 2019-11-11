@@ -1,0 +1,97 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 Sep, 2019, 10:30:17 PM
+    Author     : JOEL
+*/
+
+input[type=text], input[type=email], input[type=tel] {
+    width: 95%;
+    padding: 20px 20px;
+    margin: 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea{
+    width: 70%;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 15px;
+    resize: none;   
+}
+
+.col-sm-4 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+article{
+    background-color: white;
+    margin: auto;
+    padding: 50px;
+    color: black;       
+}
+
+#form {
+  position: relative;
+  width: 500px;
+  margin: 50px auto 100px auto;
+}
+
+#submit {
+    width: 95%;
+    height: 50px;
+    color: white;
+    background-color: black;
+    border-radius: 15px;
+    border: solid 1px #b3aca7;
+}
+
+#submit:hover {
+    background-color: transparent;
+    color: black;
+}
+
+/* Contact Us section */
+#contactusRow{
+    display: flex;
+}
+
+#contactmap{
+    flex: 50%;
+    padding: 10px;
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    padding-bottom: 10px;
+}
+
+#contactmap iframe{
+    left:0;
+    top:0;
+    position:absolute;
+}
+
+#contactus{
+    flex: 50%;
+    padding: 10px;
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    padding-bottom: 10px;
+}
+
+#btnSubmit {
+    background: black;
+    color: white;
+    border-color: black;
+}
