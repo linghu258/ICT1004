@@ -33,12 +33,16 @@ function validateReservationForm() {
     var resdatestyle = document.getElementById("resDate");
     var resdatevalue = resdatestyle.value;
     var resdatevalid = false;
+    
+    var restimestyle = document.getElementById("resTime");
+    var restimevalue = restimestyle.options[restimestyle.selectedIndex].value;
+    var restimevalid = false;
 
     var paxstyle = document.getElementById("resPax");
     var paxvalue = paxstyle.value;
     var paxvalid = false;
     
-    //Check if first name input is empty
+    //Validation for first name input
     if (fnamevalue === "") {
         fnamestyle.style.borderColor = "red";
         fnamestyle.setCustomValidity("This field cannot be left blank");
@@ -46,7 +50,7 @@ function validateReservationForm() {
     }
     else if (!namevalidation(fnamevalue)){
         fnamestyle.style.borderColor = "red";
-        fnamestyle.setCustomValidity("This field cannot be left blank");
+        fnamestyle.setCustomValidity("Please enter a name");
         fnamevalid = false;
     }
     else {
@@ -54,7 +58,7 @@ function validateReservationForm() {
         fnamevalid = true;
     }
     
-    //Check if last name input is empty
+    //Validation for last name input
     if (lnamevalue === "") {
         lnamestyle.style.borderColor = "red";
         lnamestyle.setCustomValidity("This field cannot be left blank");
@@ -62,7 +66,7 @@ function validateReservationForm() {
     }
     else if (!namevalidation(lnamevalue)){
         lnamestyle.style.borderColor = "red";
-        lnamestyle.setCustomValidity("This field cannot be left blank");
+        lnamestyle.setCustomValidity("Please enter a last name");
         lnamevalid = false;
     }
     else {
@@ -70,7 +74,7 @@ function validateReservationForm() {
         lnamevalid = true;
     }
     
-    //Check if email is empty or valid
+    //Validation for email input
     if (emailvalue === "") {
         emailstyle.style.borderColor = "red";
         emailstyle.setCustomValidity("This field cannot be left blank");
@@ -78,7 +82,7 @@ function validateReservationForm() {
     } 
     else if (!emailvalidation(emailvalue)){
         emailstyle.style.borderColor = "red";
-        emailstyle.setCustomValidity("Please input a valid email address");
+        emailstyle.setCustomValidity("Please enter a valid email address");
         emailvalid = false;
     }
     else {
@@ -86,7 +90,7 @@ function validateReservationForm() {
         emailvalid = true;
     }
     
-    //Check if contact number input is empty
+    //Validation for contact number input
     if (cnumbervalue === "") {
         cnumberstyle.style.borderColor = "red";
         cnumberstyle.setCustomValidity("This field cannot be left blank");
@@ -94,7 +98,7 @@ function validateReservationForm() {
     }
     else if (!cnumbervalidation(cnumbervalue)){
         cnumberstyle.style.borderColor = "red";
-        cnumberstyle.setCustomValidity("Please input a valid contact number");
+        cnumberstyle.setCustomValidity("Please enter a valid contact number");
         cnumbervalid = false;
     }
     else {
@@ -102,7 +106,7 @@ function validateReservationForm() {
         cnumbervalid = true;
     }
     
-    //check if date input is empty
+    //Validation for date input
     if (resdatevalue === "") {
         resdatestyle.style.borderColor = "red";
         resdatestyle.setCustomValidity("This field cannot be left blank");
@@ -113,7 +117,18 @@ function validateReservationForm() {
         resdatevalid = true;
     }
     
-    //check if number of people(pax) input is empty
+    //Validation for time input
+    if (restimevalue === 0) {
+        restimestyle.style.borderColor = "red";
+        restimestyle.setCustomValidity("Please select a time");
+        restimevalid = false;
+    }
+    else {
+        restimestyle.style.borderColor = "green";
+        restimevalid = true;
+    }
+    
+    //Validation for pax input
     if (paxvalue === "") {
         paxstyle.style.borderColor = "red";
         paxstyle.setCustomValidity("This field cannot be left blank");
@@ -130,7 +145,7 @@ function validateReservationForm() {
     }
     
     //If all input values is True/
-    if(fnamevalid & lnamevalid & emailvalid & cnumbervalid & resdatevalid & paxvalid === true) {
+    if(fnamevalid & lnamevalid & emailvalid & cnumbervalid & resdatevalid & restimevalid & paxvalid === true) {
         alert("Confirmation email for the reservation has been send. Thank You");
         location.href = "index.html";
         reservationForm.submit();
@@ -145,13 +160,13 @@ function emailvalidation(email) {
 }
 
 function namevalidation(name) {
-    return /[a-zA-Z]{1,10}/.test(name);
+    return /^([a-zA-Z']+)$/.test(name);
 }
 
 function cnumbervalidation(number) {
-    return /^[0-9]{8}$/.test(number);
+    return /^([0-9]{8})$/.test(number);
 }
 
 function paxvalidation(paxnum) {
-    return /^[1-9]\d*$/.test(paxnum);
+    return /^([0-9])$/.test(paxnum);
 }
