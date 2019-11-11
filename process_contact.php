@@ -53,7 +53,7 @@
                 $success = false; 
             } else {
                 $contactPhoneNumber = sanitize_input($_POST["contactPhoneNumber"]); 
-                if (!preg_match("/[0-9]{8}/", $contactPhoneNumber)) {
+                if (!preg_match("/^([0-9']{8})$/", $contactPhoneNumber)) {
                     $errorMsg .= "Please enter a valid number.<br>";     
                     $success = false; 
                 }
