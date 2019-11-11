@@ -35,20 +35,20 @@ and open the template in the editor.
             <h1>RESERVATION FORM</h1>
             <section class="form-group">
                 <label>First Name:</label>
-                <input type="text" class="form-control" placeholder="Enter first name" id="res_First_Name" name="res_First_Name" pattern="[a-zA-Z]{1,10}"
+                <input type="text" class="form-control" placeholder="Enter first name" id="res_First_Name" name="res_First_Name" pattern="/^([a-zA-Z']+)$/"
                        title="Please input a name" required="true">
 
                 <label>Last Name:</label>
-                <input type="text" class="form-control" placeholder="Enter last name" id="res_Last_Name" name="res_Last_Name" pattern="[a-zA-Z]{1,10}"
+                <input type="text" class="form-control" placeholder="Enter last name" id="res_Last_Name" name="res_Last_Name" pattern="/^([a-zA-Z']+)$/"
                        title="Please input a name" required="true">
 
                 <label>Email address:</label>
                 <input type="email" class="form-control" placeholder="Enter email" id="resEmail" name="resEmail"
-                       pattern="([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"
+                       pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
                        title="Please input a valid email" required="true">
 
                 <label>Contact Number:</label>
-                <input type="tel" class="form-control" placeholder="Enter contact number" id="res_ContactNumber" name="res_ContactNumber" pattern="/^[0-9]{8}$/"
+                <input type="tel" class="form-control" placeholder="Enter contact number" id="res_ContactNumber" name="res_ContactNumber" pattern="/^([0-9]{8})$/"
                        maxlength="8" title="please input a valid number" required="true">
 
                 <label>Date:</label>
@@ -56,7 +56,7 @@ and open the template in the editor.
 
                 <p>
                     <label>Time:</label> <br>
-                    <select id="resTime" name="resTime">
+                    <select id="resTime" name="resTime" required="true">
                         <option value="0">--Select Time--</option>
                         <option value="5pm">5:00 PM</option>
                         <option value="6pm">6:00 PM</option>
@@ -68,7 +68,7 @@ and open the template in the editor.
                 </p>  
 
                 <label>Number of people:</label>
-                <input type="tel" class="form-control" placeholder="Enter pax" id="resPax" name="resPax" pattern="/^[1-9]\d*$/" maxlength="3"
+                <input type="tel" class="form-control" placeholder="Enter pax" id="resPax" name="resPax" pattern="/^([0-9])$/" maxlength="3"
                        title="Please input a vaid number" required="true">
 
                 <label>Request:</label><br>
