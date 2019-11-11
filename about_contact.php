@@ -17,7 +17,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/about_contact.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
-        <script defer src="js/contactFormValidation.js"></script>
+        <script src="js/contactFormValidation.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
@@ -66,22 +66,22 @@ and open the template in the editor.
                         <form id="contactForm" action="process_contact.php" method="post">
                             <div class="form-group">
                                 <label for="contactName">Name:</label>
-                                <input type="text" class="form-control" id="contactName" name="contactName" placeholder="NAME" pattern="/^([a-zA-Z']+)$+/" title="Please input a valid name" required>
+                                <input type="text" class="form-control" id="contactName" name="contactName" placeholder="NAME" pattern="/^([a-zA-Z']+)$/" required="true">
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="EMAIL" pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="EMAIL" pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required="true">
                             </div>
                             
                             <div class="form-group">
                                 <label for="contactNumber">Contact Number:</label>
-                                <input type="tel" class="form-control" id="contactPhoneNumber" name="contactPhoneNumber" placeholder="PHONE NUMBER" pattern="[0-9]{8}"required>
+                                <input type="tel" class="form-control" id="contactPhoneNumber" name="contactPhoneNumber" placeholder="PHONE NUMBER" pattern="/^([0-9']{8})$/" required="true">
                             </div>
                             
                             <div class="form-group">
                                 <label for="feedback">Feedback/Message:</label>
-                                <textarea class="form-control" id="contactMessage" name="contactMessage" placeholder="MESSAGE" required></textarea>
+                                <textarea class="form-control" id="contactMessage" name="contactMessage" placeholder="MESSAGE" required="true"></textarea>
                             </div>
                             
                             <button type="submit" id="btnSubmit" class="btn btn-default">SUBMIT</button>
