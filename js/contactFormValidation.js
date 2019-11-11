@@ -68,7 +68,7 @@ function checkForms() {
         contactPhoneNumber.setCustomValidity("This is a required field!");
         isContactPhoneNumberValid = false;
     } else {
-        if (!chkNumner(txtContactPhoneNumber)) {
+        if (!chkNumber(txtContactPhoneNumber)) {
             contactPhoneNumber.style.borderColor = "red";
             contactPhoneNumber.setCustomValidity("Please enter a valid number!");
             isContactPhoneNumberValid = false;
@@ -90,9 +90,9 @@ function chkEmailSyntax(email) { //this is to check whether syntax of email is c
 }
 
 function chkNameSyntax(name) { //this is to check whether syntax of name is correct format or not, taken from: https://salesforce.stackexchange.com/questions/41153/best-regex-for-first-last-name-validation
-    return /[a-zA-Z]/.test(name);
+    return /^([a-zA-Z']+)$/.test(name);
 }
 
 function chkNumber(number) { 
-    return /[0-9]{8}/.test(number);
+    return /^([0-9]{8})$/.test(number);
 }
