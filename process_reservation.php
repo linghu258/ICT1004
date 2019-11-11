@@ -26,7 +26,7 @@
                 $success = false; 
             } else {
                 $res_First_Name = sanitize_input($_POST["res_First_Name"]); 
-                if (!preg_match("/^([a-zA-Z' ]+)$/", $res_First_Name)) {
+                if (!preg_match("/^([a-zA-Z']+)$/", $res_First_Name)) {
                     $errorMsg .= "Please enter a proper first name.<br>";     
                     $success = false; 
                 } else {
@@ -39,7 +39,7 @@
                 $success = false; 
             } else {
                 $res_Last_Name = sanitize_input($_POST["res_Last_Name"]); 
-                if (!preg_match("/^([a-zA-Z' ]+)$/", $res_Last_Name)) {
+                if (!preg_match("/^([a-zA-Z']+)$/", $res_Last_Name)) {
                     $errorMsg .= "Please enter a proper last name.<br>";         
                     $success = false; 
                 } else {
@@ -63,7 +63,7 @@
                 $success = false; 
             } else {
                 $res_ContactNumber = sanitize_input($_POST["res_ContactNumber"]); 
-                if (!preg_match("/^[0-9]{8}$/", $res_ContactNumber)) {
+                if (!preg_match("/^([0-9]{8})$/", $res_ContactNumber)) {
                     $errorMsg .= "Please enter a valid contact number.<br>";         
                     $success = false; 
                 } else {
@@ -90,7 +90,7 @@
                 $success = false; 
             } else {
                 $resPax = sanitize_input($_POST["resPax"]); 
-                if (!preg_match("/^[1-9]\d*$/", $resPax)) {
+                if (!preg_match("/^([0-9])$/", $resPax)) {
                     $errorMsg .= "Please enter a valid number.<br>";     
                     $success = false; 
                 }
@@ -105,17 +105,10 @@
               
             
             if ($success) {     
-                echo "<h2>Registration successful!</h2>";  
-                echo "<p> Thank you for signing up, " .$first_name . " " .$last_name . "!" . "</p>";
-                echo "<a id='btnLogin' href='login.php' class='btn btn-default'>Login</a>";
-                echo "<section id='divider'></section>";
-                echo "<a id='btnHome' href='index.php' class='btn btn-default'>Return to Home</a>";
+                header('Refresh:3; url=index.php');
                 saveMemberToDB();
             } else {    
-                echo "<h1>Oops!</h1>";
-                echo "<h4>The following input errors were detected:</h4>";     
-                echo "<p>" . $errorMsg . "</p>"; 
-                echo "<a id='btnRegister' href='register.php' class='btn btn-default'>Return to Sign Up</a>";
+                header('Refresh:3; url=reservation.php');
             } 
             
             //Helper function that checks input for malicious or unwanted content. 
