@@ -11,7 +11,13 @@ $(function () {
 //Login
 // Get the modal
 var modal = document.getElementById('adminLogin');
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
+var modal = document.getElementById('viewDetails');
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
@@ -54,7 +60,7 @@ function tableFunction() {
 }
 
 //Change password
-var myInput = document.getElementById("nPassword");
+var myInput = document.getElementById("newPassword");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
@@ -110,5 +116,83 @@ myInput.onkeyup = function () {
         length.classList.remove("valid");
         length.classList.add("invalid");
     }
+}
+
+// Form validation
+function validateForm() {
+ 
+    var regName = /^[a-zA-Z]+$/;
+    var firstname = document.forms["accountProfileForm"]["fname"].value;
+    if(firstname === ""){
+        alert("First Name must be filled in");
+        return false;
+      }
+    else if(!regName.test(firstname)){
+         alert('Please enter a valid first name');
+        return false;
+      }
+
+    var firstname = document.forms["createAccountForm"]["fname"].value;
+    if(firstname === ""){
+    alert("First Name must be filled in");
+    return false;
+    }
+    else if(!regName.test(firstname)){
+        alert('Please enter a valid first name');
+        return false;
+    }
+
+    var lastname = document.forms["accountProfileForm"]["lname"].value;
+    if (lastname == "") {
+        alert("Last Name must be filled in");
+        return false;
+    }
+    else if(!regName.test(lastname)){
+        alert('Please enter a valid last name');
+        return false;
+    }
+
+    var lastname = document.forms["createAccountForm"]["lname"].value;
+    if (lastname == "") {
+        alert("Last Name must be filled in");
+        return false;
+    }
+    else if(!regName.test(lastname)){
+        alert('Please enter a valid last name');
+        return false;
+    }
+        
+        
+    var email = document.forms["accountProfileForm"]["email"].value;
+    if (email == "") {
+      alert("Email must be filled in");
+      return false;
+    }
+    
+    var currentPassword = document.forms["changePasswordForm"]["currentPassword"].value;
+    if (currentPassword == "") {
+      alert("Current Password must be filled in");
+      return false;
+    }
+    
+    var newPassword = document.forms["changePasswordForm"]["newPassword"].value;
+    if (newPassword == "") {
+      alert("New Password must be filled in");
+      return false;
+    }
+
+    var confirmPassword = document.forms["changePasswordForm"]["confirmPassword"].value;
+    if (confirmPassword == "") {
+      alert("Confirm Password must be filled in");
+      return false;
+    }
+    
+    if(newPassword != confirmPassword)
+    {
+        alert("Password is incorrect");
+        return false;
+    }
+
+
 }
 
