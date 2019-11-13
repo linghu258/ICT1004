@@ -1,3 +1,36 @@
+<?php
+// Constants for accessing our DB:
+    define("DBHOST", "161.117.122.252");
+    define("DBNAME", "p2_5");
+    define("DBUSER", "p2_5");
+    define("DBPASS", "rBs4CTxkDU");
+    $fullname = $orderid = $email = $date = $time = $price = $errorMsg = "";
+    $success = true;
+
+//Helper function that checks input for malicious or unwanted content.
+    function sanitize_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+// Create connection
+    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+
+// Check connection
+    if ($conn->connect_error) {
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        $success = false;
+    } else {
+        $sql = "SELECT customer_order.order_id, customer_order.email, customer_order.fullName, customer_order.productName, customer_order.quantity, customer_order.totalPrice, customer_information.deliveryDate, customer_information.deliveryTime";
+        $sql .= " FROM customer_order INNER JOIN customer_information ON customer_order.customer_id = customer_information.customer_id";
+        // Execute the query
+        $result = $conn->query($sql);
+    }
+    
+?>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -30,7 +63,7 @@ and open the template in the editor.
 <body>
 
     <?php
-    include "adminHeader.inc.php";
+        include 'adminHeader.inc.php';
     ?>
 
     <article>
@@ -47,49 +80,34 @@ and open the template in the editor.
                             <tr>
                                 <th>#</th>
                                 <th>Customer Name</th>
-                                <th>Reference ID</th>
+                                <th>Order ID</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th>Pax</th>
-                                <th>Status</th>
+                                <th>Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="counterCell"></td>
-                                <td>User 1</td>
-                                <td>C-201901888</td>
-                                <td>19 October 2019</td>
-                                <td>05:45PM</td>
-                                <td>10</td>
-                                <td>Upcoming</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip"
-                                        data-placement="bottom" title="View Details"><span
-                                            class="glyphicon glyphicon-menu-hamburger"></span></a>
-                                        <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip"
-                                            data-placement="bottom" title="Update"><span
-                                                class="glyphicon glyphicon-edit"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="counterCell"></td>
-                                <td>User 2</td>
-                                <td>C-201901890</td>
-                                <td>28 October 2019</td>
-                                <td>04:45PM</td>
-                                <td>10</td>
-                                <td>Upcoming</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip"
-                                        data-placement="bottom" title="View Details"><span
-                                            class="glyphicon glyphicon-menu-hamburger"></span></a>
-                                        <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip"
-                                            data-placement="bottom" title="Update"><span
-                                                class="glyphicon glyphicon-edit"></span></button>
-                                </td>
-                            </tr>
+                            <?php while($row = $result->fetch_assoc())
+                                {
+                            ?>
+                                <tr>
+                                    <td class="counterCell"></td>
+                                    <td><?php echo $row['fullName']; ?></td>
+                                    <td><?php echo $row['order_id']; ?></td>
+                                    <td><?php echo $row['deliveryDate']; ?></td>
+                                    <td><?php echo $row['deliveryTime']; ?></td>
+                                    <td><?php echo $row['totalPrice']; ?></td>
+                                    <td>
+                                    <a class="btn btn-primary btn-xs" href="admin_viewOrder.php" data-toggle="tooltip" data-placement="bottom" title="View Details"><span
+                                        class="glyphicon glyphicon-menu-hamburger"></span></a>
+                                    <a class="btn btn-primary btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Update Details"><span
+                                        class="glyphicon glyphicon-edit"></span></a>
+                                    </td>
+                                </tr>
+                            <?php
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -98,7 +116,7 @@ and open the template in the editor.
     </article>
 
     <?php
-    include "adminFooter.inc.php";
+        include 'adminFooter.inc.php';
     ?>
 
 </body>

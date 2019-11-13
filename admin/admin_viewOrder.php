@@ -24,6 +24,7 @@
         $success = false;
     } else {
         $sql = "SELECT * FROM customer_reservation";
+        $sql .= " WHERE email='$email";
         // Execute the query
         $result = $conn->query($sql);
     }
@@ -94,10 +95,10 @@ and open the template in the editor.
                                 <td><?php echo $row['reservationTime']; ?></td>
                                 <td><?php echo $row['reservationPax']; ?></td>
                                 <td>
-                                <a data-target="#viewDetails" type="button" class="btn btn-primary btn-xs" data-toggle="modal" href="#viewDetails">
-                                    <span class="glyphicon glyphicon-menu-hamburger"></span></a>
-                                <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="Update">
-                                    <span class="glyphicon glyphicon-edit"></span></button>
+                                <button onclick="admin_viewOrder" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="View Details"><span
+                                                class="glyphicon glyphicon-hamburger"></span></button>
+                                <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="Update"><span
+                                        class="glyphicon glyphicon-edit"></span></button>
                                 </td>
                             </tr>
                         <?php
@@ -109,26 +110,6 @@ and open the template in the editor.
             </div>
         </section>
     </article>
-
-    <!-- View Reservation Details Modal -->
-    <div id="viewDetails" class="modal">
-        <span onclick="document.getElementById('viewDetails').style.display='none'" class="close"
-              title="Close Modal">&times;
-        </span>
-
-        <!-- Modal Content -->
-        <form class="modal-content animate" method="post">
-            <div class="flex-container">
-                <label for="test">Label</label>
-                <input name="test" id="test" type="text" />
-            </div>
-
-            <div class="containerbottom">
-                <button type="button" onclick="document.getElementById('viewDetails').style.display='none'"
-                        class="btn btn-dark" data-dismiss="modal">Back</button>
-            </div>
-        </form>
-    </div>
 
     <?php
         include 'adminFooter.inc.php';
