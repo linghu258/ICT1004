@@ -5,57 +5,60 @@ $product_ids = array();
 $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
 
 //check if Add to Cart button has been submitted
-if(filter_input(INPUT_POST, 'add_to_cart')) {
-    if(isset($_SESSION['shopping_cart'])) {
+if (filter_input(INPUT_POST, 'add_to_cart')) {
+    if (isset($_SESSION['shopping_cart'])) {
         //keep track of how many products are in the shopping cart
         $count = count($_SESSION['shopping_cart']);
 
         //create sequential array for matching array keys to products ids
         $product_ids = array_column($_SESSION['shopping_cart'], 'id');
 
-        if(!in_array(filter_input(INPUT_GET, 'id'), $product_ids)) {
+        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)) {
             $_SESSION['shopping_cart'][$count] = array
                 (
                 'id' => filter_input(INPUT_GET, 'id'),
                 'name' => filter_input(INPUT_POST, 'name'),
                 'price' => filter_input(INPUT_POST, 'price'),
-                'quantity' => filter_input(INPUT_POST, 'quantity')
+                'quantity' => filter_input(INPUT_POST, 'quantity'),
+                'pax' => filter_input(INPUT_POST, 'pax')
             );
-        } else{ //product already exists, increase quantity
+        } else { //product already exists, increase quantity
             //match array ket to id of the product being added to the cart
-            for($i = 0; $i < count($product_ids); $i++) {
-                if($product_ids[$i] == filter_input(INPUT_GET, 'id')) {
+            for ($i = 0; $i < count($product_ids); $i++) {
+                if ($product_ids[$i] == filter_input(INPUT_GET, 'id')) {
                     //add item quantity to he existing product in the array
                     $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
                 }
             }
         }
-    } else{ //if shopping cart doesn't exist, create first product with array key 0
+    } else { //if shopping cart doesn't exist, create first product with array key 0
         //create array using submitted form data, starting from key 0 and fill it values
         $_SESSION['shopping_cart'][0] = array
             (
             'id' => filter_input(INPUT_GET, 'id'),
             'name' => filter_input(INPUT_POST, 'name'),
             'price' => filter_input(INPUT_POST, 'price'),
-            'quantity' => filter_input(INPUT_POST, 'quantity')
+            'quantity' => filter_input(INPUT_POST, 'quantity'),
+            'pax' => filter_input(INPUT_POST, 'pax')
         );
     }
 }
 
-if(filter_input(INPUT_GET, 'action') == 'delete'){
+if (filter_input(INPUT_GET, 'action') == 'delete') {
     //loop through all products in the shopping cart until it matches with GET id variables
-   foreach($_SESSION['shopping_cart'] as $key => $product){
-       if($product['id'] == filter_input(INPUT_GET, 'id')){
-           //remove product from shopping cart when it matches with the GET id
-           unset($_SESSION['shopping_cart'][$key]);
-       }
-   }
-   //reset session array keys so they match with $product_ids numeric array
-   $_SESSION['shopping_cart'] = array_values($_SESSION['shopping_cart']);
+    foreach ($_SESSION['shopping_cart'] as $key => $product) {
+        if ($product['id'] == filter_input(INPUT_GET, 'id')) {
+            //remove product from shopping cart when it matches with the GET id
+            unset($_SESSION['shopping_cart'][$key]);
+        }
+    }
+    //reset session array keys so they match with $product_ids numeric array
+    $_SESSION['shopping_cart'] = array_values($_SESSION['shopping_cart']);
 }
 
 pre_r($_SESSION);
-function pre_r($array){
+
+function pre_r($array) {
     echo '<pre>';
     print_r($array);
     echo '</pre>';
@@ -98,12 +101,15 @@ function pre_r($array){
                         <div class="col-sm-4 col-md-3">
                             <form method="post" action="TESTMENU.php?action=add&id=<?php echo $product['cmenu_id']; ?>">
                                 <div class="products">
-                                    <!--<img src="<?php echo $product['cmenu_image']; ?>" class="img-responsive" />-->
-                                    <h4 class="text-info"><?php echo $product['cmenu_name']; ?></h4>
+                                    <img src="image/<?php echo $product['cmenu_image']; ?>" class="img-responsive" />
+                                    <h3 class="text-info"><?php echo $product['cmenu_name']; ?></h3>
+                                    <h4 class="text-secondary"><?php echo nl2br($product['cmenu_description']); ?></h4><br>
+                                    <h4>Min Pax: <?php echo $product['cmenu_pax']; ?></h4>
                                     <h4>$ <?php echo $product['cmenu_price']; ?></h4>
                                     <input type="number" name="quantity" class="form-control" value="1" />
                                     <input type="hidden" name="name" value="<?php echo $product['cmenu_name']; ?>" />
                                     <input type="hidden" name="price" value="<?php echo $product['cmenu_price']; ?>" />
+                                    <input type="hidden" name="pax" value="<?php echo $product['cmenu_pax']; ?>" />
                                     <input type="submit" name="add_to_cart" style="margin-top: 5px;" class="btn btn-info" value="Add to Cart" />
                                 </div>
                             </form>
@@ -122,19 +128,22 @@ function pre_r($array){
                         <th width="40%">Product Name</th>
                         <th width="10%">Quantity</th>
                         <th width="20%">Price</th>
-                        <th width="15%">Total</th>
+                        <th width="10%">Total</th>
+                        <th width="5%">Pax</th>
                         <th width="5%">Action</th>
                     </tr>
                     <?php
-                    if(!empty($_SESSION['shopping_cart'])):
+                    if (!empty($_SESSION['shopping_cart'])):
                         $total = 0;
-                        foreach($_SESSION['shopping_cart'] as $key => $product):
+                        $totalpax = 0;
+                        foreach ($_SESSION['shopping_cart'] as $key => $product):
                             ?>
                             <tr>
                                 <td><?php echo $product['name']; ?></td>
                                 <td><?php echo $product['quantity']; ?></td>
                                 <td>$ <?php echo $product['price']; ?></td>
                                 <td>$ <?php echo number_format($product['quantity'] * $product['price'], 2); ?></td>
+                                <td><?php echo number_format($product['quantity'] * $product['pax'], 2) + 0; ?></td>
                                 <td>
                                     <a href="TESTMENU.php?action=delete&id=<?php echo $product['id']; ?>">
                                         <div class="btn-danger">Remove</div>
@@ -143,19 +152,22 @@ function pre_r($array){
                             </tr>
                             <?php
                             $total = $total + ($product['quantity'] * $product['price']);
+                            $totalpax = $totalpax + ($product['quantity'] * $product['pax']);
                         endforeach;
                         ?>
                         <tr>
-                            <td colspan="3" align="right">TOTAL</td>
+                            <td colspan="3" align="right">TOTAL:</td>
                             <td align="right">$ <?php echo number_format($total, 2); ?></td>
+                            <td colspan="3" align="right">PAX:</td>
+                            <td align="right"><?php echo number_format($totalpax, 2) + 0; ?></td>
                             <td></td>
                         </tr>
                         <tr>
                             <!--Show checkout button only if the shopping cart is not empty-->
                             <td colspan="5">
                                 <?php
-                                if(isset($_SESSION['shopping_cart'])):
-                                    if(count($_SESSION['shopping_cart']) > 0):
+                                if (isset($_SESSION['shopping_cart'])):
+                                    if (count($_SESSION['shopping_cart']) > 0):
                                         ?>
                                         <a href="#" class="button">Checkout</a>
                                         <?php
