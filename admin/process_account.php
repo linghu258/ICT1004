@@ -12,20 +12,20 @@
 
     //email
     if (empty($_POST["email"])) {
-        $errorMsg .= "Email is required.<br>";
+        $errorMsg .= "Email is required.";
         $success = false;
     } else {
         $email = sanitize_input($_POST["email"]);
         // Additional check to make sure e-mail address is well-formed.
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errorMsg .= "Invalid email format.<br>";
+            $errorMsg .= "Invalid email format.";
             $success = false;
         }
     }
 
     //first name
     if (empty($_POST["fname"])) {
-        $errorMsg .= "First Name is required.<br>";
+        $errorMsg .= "First Name is required.";
         $success = false;
     } else {
         $fname = sanitize_input($_POST["fname"]);
@@ -37,12 +37,24 @@
 
     //last name
     if (empty($_POST["lname"])) {
-        $errorMsg .= "Last Name is required.<br>";
+        $errorMsg .= "Last Name is required.";
         $success = false;
     } else {
         $lname = sanitize_input($_POST["lname"]);
         if (!preg_match("/^[a-zA-Z'-]+$/", $lname)) {
             $errorMsg .= "Last Name is not valid. It must not contain numbers or special characters.";
+            $success = false;
+        }
+    }
+
+    //Mobile Number
+    if (empty($_POST["mobileNumber"])){
+        $errorMsg .= "Mobile Number is required.";
+        $success = false;
+    } else {
+        $mobileNumber = sanitize_input($_POST["mobileNumber"]);
+        if (!preg_match('/^[0-9]{8}+$/', $mobileNumber)) {
+            $errorMsg .= "Mobile Number is not valid. Please enter only 8 digits.";
             $success = false;
         }
     }

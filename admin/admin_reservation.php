@@ -4,7 +4,7 @@
     define("DBNAME", "p2_5");
     define("DBUSER", "p2_5");
     define("DBPASS", "rBs4CTxkDU");
-    $fname = $lname = $email = $mobileNumber = $date = $time = $pax = $request = $errorMsg = "";
+    $fname = $lname = $email = $mobileNumber = $reservationDate = $reservationTime = $reservationPax = $reservationRequest = $errorMsg = "";
     $success = true;
 
 //Helper function that checks input for malicious or unwanted content.
@@ -23,11 +23,12 @@
         $errorMsg = "Connection failed: " . $conn->connect_error;
         $success = false;
     } else {
-        $sql = "SELECT * FROM customer_reservation";
-        // Execute the query
-        $result = $conn->query($sql);
+        $success;
     }
     
+$ALFRED = "";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,37 +72,60 @@ and open the template in the editor.
                     <input type="text" id="searchInput" onkeyup="tableFunction()" placeholder="Search"
                         title="Search for...">
                     <table id="orderTable" class="table table-striped table-hover">
+                        <?php 
+                            $sql = "SELECT * FROM customer_reservation";
+                            $result = $conn->query($sql);
+                        ?>
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Reservation ID</th>
                                 <th>Customer Name</th>
+                                <th>Mobile Number</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Pax</th>
+                                <th>Request</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <?php while($row = $result->fetch_assoc())
-                            {
+                        <?php
+                            if ($result->num_rows > 0){
+                                foreach($result as $row)
+                                {
                         ?>
+                        <tbody>
                             <tr>
                                 <td class="counterCell"></td>
                                 <td><?php echo $row['reservation_id']; ?></td>
-                                <td><?php echo $row['fname']; ?></td>
+                                <td><?php echo $row['fname'], " " ,$row['lname']; ?></td>
+                                <td><?php echo $row['mobileNumber']; ?></td>
                                 <td><?php echo $row['reservationDate']; ?></td>
                                 <td><?php echo $row['reservationTime']; ?></td>
                                 <td><?php echo $row['reservationPax']; ?></td>
-                                <td>
-                                <a data-target="#viewDetails" type="button" class="btn btn-primary btn-xs" data-toggle="modal" href="#viewDetails">
-                                    <span class="glyphicon glyphicon-menu-hamburger"></span></a>
-                                <button type="button" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="bottom" title="Update">
-                                    <span class="glyphicon glyphicon-edit"></span></button>
-                                </td>
+                                <td><?php echo $row['reservationRequest']; ?></td>
+                                <td><button type="button" class="btn btn-primary btn-xs updatebtn"title="Update Details"><span class="glyphicon glyphicon-edit"></span></button></td>
                             </tr>
                         <?php
                             }
+                            (isset($result)) ? $result->free_result() : "";
+                            unset($row);
+                        }
+                        else{
+                        ?>    
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>No Data Available!</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <?php
+                        }
                         ?>
                         </tbody>
                     </table>
@@ -111,24 +135,79 @@ and open the template in the editor.
     </article>
 
     <!-- View Reservation Details Modal -->
-    <div id="viewDetails" class="modal">
-        <span onclick="document.getElementById('viewDetails').style.display='none'" class="close"
-              title="Close Modal">&times;
-        </span>
-
-        <!-- Modal Content -->
-        <form class="modal-content animate" method="post">
-            <div class="flex-container">
-                <label for="test">Label</label>
-                <input name="test" id="test" type="text" />
+    <div class="modal fade" id="updateReservation" tab-index="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">View Restaurant Details</h4>
+                </div>
+                <form action="process_updatedetails.php" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label> Reservation ID </label>
+                            <input type="text" name="reservationID" id="reservationID" class="form-control" placeholder="Reservation ID" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label> Customer Name </label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Customer Name" readonly>
+                        </div> 
+                        <div class="form-group">
+                            <label> Mobile Number </label>
+                            <input type="text" name="mobileNumber" id="mobileNumber" class="form-control" placeholder="Mobile Number" readonly>
+                        </div>  
+                        <div class="form-group">
+                            <label> Reservation Date </label>
+                            <input type="text" name="reservationDate" id="reservationDate" class="form-control" placeholder="Reservation Date (YYYY-MM-DD)" required>
+                        </div>
+                        <div class="form-group">
+                            <label> Reservation Time </label>
+                            <input type="text" name="reservationTime" id="reservationTime" class="form-control" placeholder="Reservation Time" required>
+                        </div>
+                        <div class="form-group">
+                            <label> Reservation Pax </label>
+                            <input type="text" name="reservationPax" id="reservationPax" class="form-control" placeholder="Reservation Pax" onkeypress="javascript:return isNumber(event)" required>
+                        </div> 
+                        <div class="form-group">
+                            <label> Reservation Request </label>
+                            <input type="text" name="reservationRequest" id="reservationRequest" class="form-control" placeholder="Reservation Request" readonly>
+                        </div>       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark" name="updatebutton">Update</button>
+                    </div>
+                </form>
             </div>
-
-            <div class="containerbottom">
-                <button type="button" onclick="document.getElementById('viewDetails').style.display='none'"
-                        class="btn btn-dark" data-dismiss="modal">Back</button>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <script>
+    $(document).ready(function(){
+        $('.updatebtn').on('click', function(){
+            $('#updateReservation').modal('show');
+
+            $tr = $(this).closest('tr');
+            
+            var data = $tr.children("td").map(function(){
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#reservationID').val(data[1]);
+            $('#name').val(data[2]);
+            $('#mobileNumber').val(data[3]);
+            $('#reservationDate').val(data[4]);
+            $('#reservationTime').val(data[5]);
+            $('#reservationPax').val(data[6]);
+            $('#reservationRequest').val(data[7]);
+
+        });
+    });
+    </script>
 
     <?php
         include 'adminFooter.inc.php';

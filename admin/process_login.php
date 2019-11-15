@@ -67,18 +67,14 @@ else
         }   
         else
         {
-            pop_up_alert("Login failed. Email and Password does not match.");  
+            header('refresh: 0; url=../index.php');
+            echo "<script>alert('Login failed. Email and Password does not match.')</script>";  
         }
     }
     else
     {
-        pop_up_alert("Account does not exist.");
+        header('refresh: 0; url=../index.php');
+        echo "<script>alert('Account does not exist. You will be redirected.')</script>";  
     }
-}
-
-function pop_up_alert($message)
-{
-    header("Refresh:0; url=..\index.php");
-    echo "<script>alert('$message');</script>"; 
 }
 ?>

@@ -20,6 +20,18 @@
         }
     }
 
+    //Mobile Number
+    if (empty($_POST["mobileNumber"])){
+        $errorMsg .= "Mobile Number is required.";
+        $success = false;
+    } else {
+        $mobileNumber = sanitize_input($_POST["mobileNumber"]);
+        if (!preg_match('/^[0-9]{8}+$/', $mobileNumber)) {
+            $errorMsg .= "Mobile Number is not valid. Please enter only 8 digits.";
+            $success = false;
+        }
+    }
+
     if ($success) {
         updateProfile();
         echo '<script type="text/javascript">';
