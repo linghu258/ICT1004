@@ -12,9 +12,7 @@ and open the template in the editor.
         <meta name="keywords" content="restaurant, catering, menu, reservation, home, food, open, 7">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/header_footer.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />
 
@@ -79,7 +77,7 @@ and open the template in the editor.
                 </section>
 
                 <figure id="home" class="col-sm-6">
-                    <img src="image/kitchen.jpg" alt="kitchen">
+                     <img src="image/kitchen.jpg" class="img-responsive" alt="kitchen">
                     <!--Url: https://unsplash.com/photos/zk5vJ8Duw9k | Author: Hansel Louis | Publish: August, 2019 | Publisher: Unsplash | Visited: October 5, 2019-->
                 </figure>
             </section>
@@ -94,25 +92,24 @@ and open the template in the editor.
         </span>
 
         <!-- Modal Content -->
-        <form class="modal-content animate" action="admin/admin_dashboard.php">
+        <form class="modal-content animate" action="admin/process_login.php" method="post">
 
             <div class="flex-container">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="email"><b>Enter Email</b></label>
+                <input type="email" id="email" placeholder="Enter email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" required>
 
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <label for="password"><b>Enter Password</b></label>
+                <input type="password" id="password" placeholder="Enter Password" name="password" required>
 
                 <button type="submit" id="loginbtn">Login</button>
                 <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    <input type="checkbox" id="rememberme" checked="checked"> Remember me
                 </label>
             </div>
 
             <div class="containerbottom">
-                <button type="button" onclick="document.getElementById('adminLogin').style.display='none'"
-                        class="cancelbtn" data-dismiss="modal">Cancel</button>
-                <span class="password"><a href="#">Forgot password?</a></span>
+                <button type="button" onclick="document.getElementById('adminLogin').style.display='center'"
+                        class="cancelbtn btn btn-dark" data-dismiss="modal">Cancel</button>
             </div>
         </form>
     </div>
