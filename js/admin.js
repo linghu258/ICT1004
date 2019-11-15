@@ -17,13 +17,6 @@ window.onclick = function (event) {
     }
 }
 
-var modal = document.getElementById('viewDetails');
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 //Validate numbers only in textbox
 function isNumber(evt) {
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode
@@ -195,4 +188,3 @@ function validateForm() {
 
 
 }
-
