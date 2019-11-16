@@ -26,25 +26,25 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">MENU <span
                                     class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="entree.php">ENTREE</a></li>
+                                <li><a href="menu_appetizer.php">Appetizer</a></li>
                                 <li class="divider"></li>
-                                <li><a href="main_menu.php">MAIN</a></li>
+                                <li><a href="menu_main.php">MAIN</a></li>
                                 <li class="divider"></li>
-                                <li><a href="dessert.php">DESSERT</a></li>
+                                <li><a href="menu_dessert.php">DESSERT</a></li>
                                 <li class="divider"></li>
-                                <li><a href="beverage.php">BEVERAGE</a></li>
+                                <li><a href="menu_beverage.php">BEVERAGE</a></li>
                                 <li class="divider"></li>
+                                <li><a href="catering_menu.php">CATERING</a></li>
                             </ul>
                         </li>
                         <li><a href="reservation.php">RESERVATION</a></li>
-                        <li><a href="catering.php">CATERING</a></li>
+                        <!--<li><a href="catering_menu.php">CATERING</a></li>-->
                         <li><a href="about_contact.php">ABOUT US</a></li>
                         <li><a href="faq.php">FAQ</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="shoppingcart.php"><span class="glyphicon glyphicon-shopping-cart"></span>SHOPPING
-                                CART</a></li>
+                        <li><a href="catering_cart.php"><span class="glyphicon glyphicon-shopping-cart"></span>ORDER CATERING</a></li>
                     </ul>
                 </section>
             </section>
