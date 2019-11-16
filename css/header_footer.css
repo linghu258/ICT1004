@@ -35,7 +35,8 @@ footer{
     background: #222;
     color: white;
     text-align: center;
-
+    margin: 0;
+    bottom: 0;
 }
 
 footer h1 {
