@@ -60,10 +60,12 @@
             }
 
             if ($success) {     
+                echo '<script>alert("Thank You. We will answer you back as soon as possible."); </script>';
                 header('Refresh:3; url=index.php');
                 saveMemberToDB();
                 
             } else {    
+                echo '<script>alert("Please check your form and submit again."); </script>';
                 header('Refresh:3; url=about_contact.php');
             } 
             
