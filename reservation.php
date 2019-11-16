@@ -54,25 +54,24 @@ and open the template in the editor.
                 <label>Date:</label>
                 <input type="date" class="form-control" id="resDate" name="resDate" required="true">
 
-                <p>
-                    <label>Time:</label> <br>
-                    <select id="resTime" name="resTime" required="true">
-                        <option value="0">--Select Time--</option>
-                        <option value="5pm">5:00 PM</option>
-                        <option value="6pm">6:00 PM</option>
-                        <option value="7pm">7:00 PM</option>
-                        <option value="8pm">8:00 PM</option>
-                        <option value="9pm">9:00 PM</option>
-                        <option value="10pm">10:00 PM</option>
-                    </select>
-                </p>  
+                <label>Time:</label> <br>
+                <select id="resTime" name="resTime" required="true">
+                    <option value="0">--Select Time--</option>
+                    <option value="5pm">5:00 PM</option>
+                    <option value="6pm">6:00 PM</option>
+                    <option value="7pm">7:00 PM</option>
+                    <option value="8pm">8:00 PM</option>
+                    <option value="9pm">9:00 PM</option>
+                    <option value="10pm">10:00 PM</option>
+                </select>
+                <br>
 
                 <label>Number of people:</label>
                 <input type="tel" class="form-control" placeholder="Enter pax" id="resPax" name="resPax" pattern="/^([0-9])$/" maxlength="3"
                        title="Please input a vaid number" required="true">
 
                 <label>Request:</label><br>
-                <textarea id="resComment" name="resComment" placeholder="Request"></textarea>
+                <textarea id="resComment" name="resComment" placeholder="Request (optional)"></textarea>
             </section>
 
             <button type="submit" id="btnReservation" class="btn btn-default">Submit Reservation</button>
