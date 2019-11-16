@@ -24,7 +24,7 @@ function validatePaymentForm() {
     var custemailvalue = custemailstyle.value;
     var custemailvalid = false;
     
-    var cnumberestyle = document.getElementById("cnumber");
+    var cnumberestyle = document.getElementById("custnumber");
     var cnumbervalue = cnumberestyle.value;
     var cnumbervalid = false;
     
@@ -49,7 +49,7 @@ function validatePaymentForm() {
     var deldatevalid = false;
     
     var deltimestyle = document.getElementById("deltime");
-    var deltimevalue = deltimestyle.value;
+    var deltimevalue = deltimestyle.options[deltimestyle.selectedIndex].value;
     var deltimevalid = false;
     
     var ccnamestyle = document.getElementById("ccname");
@@ -68,17 +68,6 @@ function validatePaymentForm() {
     var ccvvalue = ccvstyle.value;
     var ccvvalid = false;
     
-    //regular expression checker for user input/
-    var addressvalidation = /[A-Za-z0-9'\.\-\#\s\,]+$/;
-    var namevalidation = /^[a-zA-Z ]{2,30}$/;
-    var emailvalidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;;
-    var contactnumbervalidation = /^\d*$/;
-    var unitnumbervalidation = /\d+\-+\d+$/;
-    var zipcodevalidation = /^\d{6}$/;
-    var ccnumbervalidation = /^\d{16}$/;
-    var ccvvalidation = /^\d{3}$/;
-    var expnumbervalidation = /^\d{2}\/\d{2}$/;
-    
     //validation customer information part/
     //customer name/
     if (custnamevalue === "") {
@@ -86,7 +75,7 @@ function validatePaymentForm() {
         custnamestyle.setCustomValidity("This field cannot be left blank");
         custnamevalid = false;
     }
-    else if(!namevalidation.test(custnamevalue)) {
+    else if(!namevalidation(custnamevalue)) {
         custnamestyle.style.borderColor = "red";
         custnamestyle.setCustomValidity("Please enter a valid name");
         custnamevalid = false;
@@ -102,7 +91,7 @@ function validatePaymentForm() {
         custemailstyle.setCustomValidity("This field cannot be left blank");
         custnamevalid = false;
     }
-    else if(!emailvalidation.test(custemailvalue)) {
+    else if(!emailvalidation(custemailvalue)) {
         custemailstyle.style.borderColor = "red";
         custemailstyle.setCustomValidity("Please enter a valid email");
         custemailvalid = false;
@@ -118,9 +107,9 @@ function validatePaymentForm() {
         cnumberestyle.setCustomValidity("This field cannot be left blank");
         cnumbervalid = false;
     }
-    else if(!contactnumbervalidation.test(cnumbervalue)) {
+    else if(!contactnumbervalidation(cnumbervalue)) {
         cnumberestyle.style.borderColor = "red";
-        cnumberestyle.setCustomValidity("Please enter a valid email");
+        cnumberestyle.setCustomValidity("Please enter a valid number");
         cnumbervalid = false;
     }
     else {
@@ -135,9 +124,9 @@ function validatePaymentForm() {
         streetaddstyle.setCustomValidity("This field cannot be left blank");
         streetaddvalid = false;
     }
-    else if(!addressvalidation.test(streetaddvalue)) {
+    else if(!addressvalidation(streetaddvalue)) {
         streetaddstyle.style.borderColor = "red";
-        streetaddstyle.setCustomValidity("Please enter a valid email");
+        streetaddstyle.setCustomValidity("Please enter a valid address");
         streetaddvalid = false;
     }
     else {
@@ -151,9 +140,9 @@ function validatePaymentForm() {
         blknumberstyle.setCustomValidity("This field cannot be left blank");
         blknumbervalid = false;
     }
-    else if(!addressvalidation.test(blknumbervalue)) {
+    else if(!blknumbervalidation(blknumbervalue)) {
         blknumberstyle.style.borderColor = "red";
-        blknumberstyle.setCustomValidity("Please enter a valid email");
+        blknumberstyle.setCustomValidity("Please enter a valid blk number");
         blknumbervalid = false;
     }
     else {
@@ -167,9 +156,9 @@ function validatePaymentForm() {
         unitnumberstyle.setCustomValidity("This field cannot be left blank");
         unitnumbervalid = false;
     }
-    else if(!unitnumbervalidation.test(unitnumbervalue)) {
+    else if(!unitnumbervalidation(unitnumbervalue)) {
         unitnumberstyle.style.borderColor = "red";
-        unitnumberstyle.setCustomValidity("Please enter a valid email");
+        unitnumberstyle.setCustomValidity("Please enter a valid unit number");
         unitnumbervalid = false;
     }
     else {
@@ -183,9 +172,9 @@ function validatePaymentForm() {
         zipcodestyle.setCustomValidity("This field cannot be left blank");
         zipcodevalid = false;
     }
-    else if(!zipcodevalidation.test(zipcodevalue)) {
+    else if(!zipcodevalidation(zipcodevalue)) {
         zipcodestyle.style.borderColor = "red";
-        zipcodestyle.setCustomValidity("Please enter a valid email");
+        zipcodestyle.setCustomValidity("Please enter a valid zipcode");
         zipcodevalid = false;
     }
     else {
@@ -205,7 +194,7 @@ function validatePaymentForm() {
     }
     
     //delivery time/
-    if (deltimevalue === "") {
+    if (deltimevalue === 0) {
         deltimestyle.style.borderColor = "red";
         deltimestyle.setCustomValidity("This field cannot be left blank");
         deltimevalid = false;
@@ -222,7 +211,7 @@ function validatePaymentForm() {
         ccnamestyle.setCustomValidity("This field cannot be left blank");
         ccnamevalid = false;
     }
-    else if(!namevalidation.test(ccnamevalue)) {
+    else if(!namevalidation(ccnamevalue)) {
         ccnamestyle.style.borderColor = "red";
         ccnamestyle.setCustomValidity("Please enter a valid name");
         ccnamevalid = false;
@@ -238,9 +227,9 @@ function validatePaymentForm() {
         ccnumberstyle.setCustomValidity("This field cannot be left blank");
         ccnumbervalid = false;
     }
-    else if(!ccnumbervalidation.test(ccnumbervalue)) {
+    else if(!ccnumbervalidation(ccnumbervalue)) {
         ccnumberstyle.style.borderColor = "red";
-        ccnumberstyle.setCustomValidity("Please enter a valid email");
+        ccnumberstyle.setCustomValidity("Please enter a valid credit card number");
         ccnumbervalid = false;
     }
     else {
@@ -254,9 +243,9 @@ function validatePaymentForm() {
         expdatestyle.setCustomValidity("This field cannot be left blank");
         expdatevalid = false;
     }
-    else if(!expnumbervalidation.test(expdatevalue)) {
+    else if(!expnumbervalidation(expdatevalue)) {
         expdatestyle.style.borderColor = "red";
-        expdatestyle.setCustomValidity("Please enter a valid email");
+        expdatestyle.setCustomValidity("Please enter a valid exp dates");
         expdatevalid = false;
     }
     else {
@@ -270,9 +259,9 @@ function validatePaymentForm() {
         ccvstyle.setCustomValidity("This field cannot be left blank");
         ccvvalid = false;
     }
-    else if(!ccvvalidation.test(ccvvalue)) {
+    else if(!ccvvalidation(ccvvalue)) {
         ccvstyle.style.borderColor = "red";
-        ccvstyle.setCustomValidity("Please enter a valid email");
+        ccvstyle.setCustomValidity("Please enter a valid ccv number");
         ccvvalid = false;
     }
     else {
@@ -282,10 +271,51 @@ function validatePaymentForm() {
     
     //If all input values is True/
     if(custnamevalid & custemailvalid & cnumbervalid & streetaddvalid & blknumbervalid & unitnumbervalid & zipcodevalid & deldatevalid & deltimevalid & ccnamevalid & ccnumbervalid & expdatevalid & ccvvalid === true) {
-        alert("Confirmation Email of delivery will be send shortly. THANK YOU for ordering with YUM-YUM");
+        location.href = "cart_information.php";
+        paymentForm.submit();
     }
     else {
         alert("Please make sure your details are valid. Thank You");
     }
-   
+}
+
+
+function emailvalidation(email) { 
+    return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
+}
+
+function namevalidation(name) {
+    return /^([a-zA-Z']+)$/.test(name);
+}
+
+function contactnumbervalidation(number) {
+    return /^([0-9]{8})$/.test(number);
+}
+
+function addressvalidation(address) {
+    return /^([A-Za-z0-9'\.\-\#\s\,])+$/.test(address);
+}
+
+function blknumbervalidation(blknum) {
+    return /^([0-9]{3})$/.test(blknum);
+}
+
+function unitnumbervalidation(unit) {
+    return /^([0-9]{2}\-[0-9]{3})$/.test(unit);
+}
+
+function zipcodevalidation(zipcode) {
+    return /^([0-9]{6})$/.test(zipcode);
+}
+
+function ccnumbervalidation(ccnumber) {
+    return /^([0-9]{16})$/.test(ccnumber);
+}
+
+function expnumbervalidation(expnum) {
+    return /^([0-9]{2}\/[0-9]{2})$/.test(expnum);
+}
+
+function ccvvalidation(ccvnum) {
+    return /^([0-9]{3})$/.test(ccvnum);
 }
