@@ -1,20 +1,7 @@
 <?PHP
+session_start();
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
-$array = $_SESSION['shopping_cart'];  //Assigns session var to $array
-
-
-pre_r($_SESSION);
-
-function pre_r($array) {
-    echo '<pre>';
-    print_r($array);
-    echo '</pre>';
-}
-
+$array = $_SESSION['shopping_cart'];  
 ?>
 
 <!DOCTYPE html>
