@@ -61,7 +61,7 @@
                     $errorMsg .= "Please enter a valid contact number.<br>";         
                     $success = false; 
                 } else {
-                    $custnumber = sanitize_input($_POST["custnumber"]);    
+                    $custnumber = encryptthis(sanitize_input($_POST["custnumber"]), $key); 
                 }
             }
             
@@ -74,7 +74,7 @@
                     $errorMsg .= "Please enter a valid address.<br>";         
                     $success = false; 
                 } else {
-                    $streetadd = sanitize_input($_POST["streetadd"]);    
+                    $streetadd = encryptthis(sanitize_input($_POST["streetadd"]), $key); 
                 }
             }
             
@@ -87,7 +87,7 @@
                     $errorMsg .= "Please enter a valid blk number.<br>";         
                     $success = false; 
                 } else {
-                    $blknumber = sanitize_input($_POST["blknumber"]);    
+                    $blknumber = encryptthis(sanitize_input($_POST["blknumber"]), $key);   
                 }
             }
             
@@ -100,7 +100,7 @@
                     $errorMsg .= "Please enter a valid unit number.<br>";         
                     $success = false; 
                 } else {
-                    $unitnumber = sanitize_input($_POST["unitnumber"]);    
+                    $unitnumber = encryptthis(sanitize_input($_POST["unitnumber"]), $key);   
                 }
             }
             
@@ -113,7 +113,7 @@
                     $errorMsg .= "Please enter a valid zipcode.<br>";         
                     $success = false; 
                 } else {
-                    $zipcode = sanitize_input($_POST["zipcode"]);    
+                    $zipcode = encryptthis(sanitize_input($_POST["zipcode"]), $key); 
                 }
             }
             
@@ -185,9 +185,8 @@
             
             if ($success) {     
                 //header('Location: cart_information.php');
-                savePaymentInfoToDB();
                 saveCustomerInfoToDB();
-                connectID();
+                savePaymentInfoToDB();
                 saveOrderToTable();
                 echo "<h1>Your Order Has been Placed!</h1>";
                 echo "<h2>Thank You For Your Support</h2>";    
@@ -226,8 +225,13 @@
                     $errorMsg = "Connection failed: " . $conn->connect_error;         
                 }
                 else{ //prepared statement
-                    $compile = $conn->prepare("INSERT INTO customer_payment_information (fullName, creditcardNumber, expiry, ccv) VALUES (?, ?, ?, ?)");            
-                    $compile->bind_param("sdsi", $ccname, $ccnumber, $expdate, $ccvnumber);
+                    $sql = "SELECT customer_id FROM customer_information ORDER BY customer_id DESC LIMIT 1";
+                    $idValue = $conn->query($sql);
+                    $idValueResult = $idValue->fetch_assoc();
+                    $customerID = $idValueResult['customer_id'];
+                    
+                    $compile = $conn->prepare("INSERT INTO customer_payment_information (customer_id, fullName, creditcardNumber, expiry, ccv) VALUES (?, ?, ?, ?, ?)");            
+                    $compile->bind_param("issss", $customerID, $ccname, $ccnumber, $expdate, $ccvnumber);
                     $compile->execute();
                     $compile->close();
                     $conn->close();
@@ -252,22 +256,6 @@
                 } 
             } 
             
-            function connectID(){
-                global $errorMsg;
-                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-                if ($conn->connect_error) {            
-                    $errorMsg = "Connection failed: " . $conn->connect_error;         
-                }
-                else{ //prepared statement
-                    $sql = "UPDATE customer_payment_information SET customer_id = (SELECT customer_id FROM customer_information ORDER BY customer_id DESC LIMIT 1) ORDER BY customer_id ASC LIMIT 1;";
-                    if (mysqli_query($conn, $sql)) {
-                        //echo "ID has been sucessfully updated";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                    }
-                    $conn->close();
-                } 
-            }
                 
             //Save user order into database.
             function saveOrderToTable() {
@@ -279,28 +267,17 @@
                     $errorMsg = "Connection failed: " . $connect->connect_error;  
                 } else {
                     foreach ($array as $product) {
+                        //fetch primary key value
+                        $sql = "SELECT customer_id FROM customer_information ORDER BY customer_id DESC LIMIT 1";
+                        $idValue = $connect->query($sql);
+                        $idValueResult = $idValue->fetch_assoc();
+                        $customerID = $idValueResult['customer_id'];
+                        
                         //prepared statement
-                        $compile = $connect->prepare("INSERT INTO customer_order (productName, quantity, totalPrice, pax) VALUES (?, ?, ?, ?)");
-                        $compile->bind_param("siii", $product['name'],$product['quantity'], $product['price'], $product['pax']);
+                        $compile = $connect->prepare("INSERT INTO customer_order (cust_id, productName, quantity, price, pax) VALUES (?, ?, ?, ?, ?)");
+                        $compile->bind_param("isiii", $customerID, $product['name'],$product['quantity'], $product['price'], $product['pax']);
                         $compile->execute();
                         $compile->close();
-                        //normal mysql queries
-                        //if ($errorMsg != 'Connection failed: ') {
-                        //    echo $errorMsg; 
-                        //    $connect->close();
-                        //   return;
-                        //}
-                        //$sql = "INSERT INTO customer_order (productName, quantity, totalPrice, pax) VALUES ('{$product['name']}', '{$product['quantity']}', '{$product['price']}', '{$product['pax']}')";
-                        //if ($connect->query($sql)) {
-                        //    $product = [];
-                        //    $errorMsg = "Connection failed: " . $connect->connect_error;
-                        //    $success = false;
-                        //}
-                        //if ($errorMsg != 'Connection failed: ') {
-                        //    echo $errorMsg; 
-                        //    $connect->close();
-                        //   return;
-                        //}
                     }
                 }
                 session_destroy();
