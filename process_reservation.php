@@ -13,6 +13,8 @@
     <body>      
         <article class="formvalidateOutput">
             <?php
+            //encryption key
+            $key = 'qkwjdiw239&&jdafweihbrhnan&^%$ggdnawhd4njshjwuuO';
             // Constants for accessing our DB:
             define("DBHOST", "161.117.122.252"); 
             define("DBNAME", "p2_5"); 
@@ -30,7 +32,7 @@
                     $errorMsg .= "Please enter a proper first name.<br>";     
                     $success = false; 
                 } else {
-                    $res_First_Name = sanitize_input($_POST["res_First_Name"]);    
+                    $res_First_Name = encryptthis(sanitize_input($_POST["res_First_Name"]), $key); 
                 }
             }
             
@@ -43,7 +45,7 @@
                     $errorMsg .= "Please enter a proper last name.<br>";         
                     $success = false; 
                 } else {
-                    $res_Last_Name = sanitize_input($_POST["res_Last_Name"]);    
+                    $res_Last_Name = encryptthis(sanitize_input($_POST["res_Last_Name"]), $key);    
                 }
             }
             
@@ -56,6 +58,9 @@
                     $errorMsg .= "Invalid email format.<br>";         
                     $success = false;       
                 }
+                else {
+                    $resEmail = encryptthis(sanitize_input($_POST["resEmail"]), $key);
+                }
             } 
             
             if (empty($_POST["res_ContactNumber"])) {
@@ -67,7 +72,7 @@
                     $errorMsg .= "Please enter a valid contact number.<br>";         
                     $success = false; 
                 } else {
-                    $res_ContactNumber = sanitize_input($_POST["res_ContactNumber"]);    
+                    $res_ContactNumber = encryptthis(sanitize_input($_POST["res_ContactNumber"]), $key);    
                 }
             }
             
@@ -105,10 +110,12 @@
               
             
             if ($success) {     
-                header('Refresh:3; url=index.php');
+                echo '<script>alert("Your reservation has been confirmed."); </script>';
+                header('Refresh:0; url=index.php');
                 saveMemberToDB();
             } else {    
-                header('Refresh:3; url=reservation.php');
+                echo '<script>alert("Please check your form and submit again."); </script>';
+                header('Location: reservation.php');
             } 
             
             //Helper function that checks input for malicious or unwanted content. 
@@ -126,19 +133,31 @@
                 $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                 // Check connection     
                 if ($conn->connect_error) {            
-                    $errorMsg = "Connection failed: " . $conn->connect_error;         
-                    $success = false;                         
+                    $errorMsg = "Connection failed: " . $conn->connect_error;                               
                 } else {         
-                    $sql = "INSERT INTO customer_reservation (fname, lname, email, mobileNumber, reservationDate, reservationTime, reservationPax, reservationRequest)";         
-                    $sql .= " VALUES ('$res_First_Name', '$res_Last_Name', '$resEmail', '$res_ContactNumber', '$resDate', '$resTime', '$resPax', '$resComment')"; 
+                    $compile = $conn->prepare("INSERT INTO customer_reservation (fname, lname, email, mobileNumber, reservationDate, reservationTime, reservationPax, reservationRequest) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    $compile->bind_param("ssssssis", $res_First_Name, $res_Last_Name, $resEmail, $res_ContactNumber, $resDate, $resTime, $resPax, $resComment);
+                    $compile->execute();
+                    $compile->close();
+                    //$sql = "INSERT INTO customer_reservation (fname, lname, email, mobileNumber, reservationDate, reservationTime, reservationPax, reservationRequest)";         
+                    //$sql .= " VALUES ('$res_First_Name', '$res_Last_Name', '$resEmail', '$res_ContactNumber', '$resDate', '$resTime', '$resPax', '$resComment')"; 
                     // Execute the query         
-                    if (!$conn->query($sql)) {             
-                        $errorMsg = "Database error: " . $conn->error;             
-                        $success = false;                          
-                    }     
+                    //if (!$conn->query($sql)) {             
+                    //    $errorMsg = "Database error: " . $conn->error;             
+                    //    $success = false;                          
+                    //}     
                 } 
                 $conn->close(); } 
+                
+            function encryptthis($data, $key) {
+                $encryption_key = base64_decode($key);
+                $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+                $encrypted = openssl_encrypt($data, 'aes-256-cbc', $encryption_key, 0, $iv);
+                return base64_encode($encrypted . '::' . $iv);
+            }
+            
             ?> 
+            
             
         </article>
     </body>
