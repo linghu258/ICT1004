@@ -147,7 +147,7 @@ function validateReservationForm() {
     //If all input values is True/
     if(fnamevalid & lnamevalid & emailvalid & cnumbervalid & resdatevalid & restimevalid & paxvalid === true) {
         alert("Confirmation email for the reservation has been send. Thank You");
-        location.href = "index.html";
+        location.href = "index.php";
         reservationForm.submit();
     }
     else {
