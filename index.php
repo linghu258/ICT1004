@@ -4,10 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html  lang="en">
     <head>
         <title>TUMMY FOR YUMMY</title>
-        <link rel="icon" href="image/1004 Logo 2.png">
         <meta name="description" content="YUM-YUM is a Singapore restaurant and catering business. Wide range of affordable and delicious food. Open all-day, seven days a week.">
         <meta name="keywords" content="restaurant, catering, menu, reservation, home, food, open, 7">
         <meta charset="UTF-8">
