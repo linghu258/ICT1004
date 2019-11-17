@@ -3,7 +3,7 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
 ?>
 
 <!DOCTYPE html>  
-<html lang="en">  
+<html  lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
         <meta name="description" content="YUM-YUM's restaurant and catering services food menu. We provide a huge selection of dishes, including vegetarian!">
@@ -25,21 +25,21 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
         include "navbar.inc.php";
         ?>
         <section class="container-fluid imgcontainer">
-            <img class="figimage" src="image/APPETIZER.png" alt="topimage">
+            <img class="figimage" src="image/DESSERT.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
         </section>
 
         <div class="container">
-            <h1>SALAD</h1>
+            <h1>DESSERT</h1>
             <hr>
 
             <?php
-            $saladquery = "SELECT * FROM p2_5.res_menu WHERE (resmenu_category = 'salad');";
-            $saladresult = mysqli_query($connect, $saladquery);
+            $dessertquery = "SELECT * FROM p2_5.res_menu WHERE (resmenu_category = 'dessert');";
+            $dessertresult = mysqli_query($connect, $dessertquery);
 
-            if ($saladresult):
-                if (mysqli_num_rows($saladresult) > 0):
-                    while ($product = mysqli_fetch_assoc($saladresult)):
+            if ($dessertresult):
+                if (mysqli_num_rows($dessertresult) > 0):
+                    while ($product = mysqli_fetch_assoc($dessertresult)):
                         ?>
                         <div class="col-sm-4 col-md-3">
                             <section class="products">
@@ -56,32 +56,6 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
             ?>
         </div>
 
-        <div class="container">
-            <h1>SOUP</h1>
-            <hr>
-
-            <?php
-            $soupquery = "SELECT * FROM p2_5.res_menu WHERE (resmenu_category = 'soup');";
-            $soupresult = mysqli_query($connect, $soupquery);
-
-            if ($soupresult):
-                if (mysqli_num_rows($soupresult) > 0):
-                    while ($product = mysqli_fetch_assoc($soupresult)):
-                        ?>
-                        <div class="col-sm-4 col-md-3">
-                            <section class="products">
-                                <img src="image/<?php echo $product['resmenu_img']; ?>" title="<?php echo $product['resmenu_alt'] ?>" alt="<?php echo $product['resmenu_alt'] ?>" class="img-responsive" />
-                                <h2 class="text-info"><?php echo $product['resmenu_name']; ?></h2>
-                                <h4 class="text-secondary"><?php echo $product['resmenu_description']; ?></h4><br>
-                                <h4>Price: $<?php echo $product['resmenu_price']; ?></h4>
-                            </section>
-                        </div>
-                        <?php
-                    endwhile;
-                endif;
-            endif;
-            ?>
-        </div>
 
         <?php
         include "footer.inc.php";

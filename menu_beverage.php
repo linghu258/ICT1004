@@ -3,10 +3,9 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
 ?>
 
 <!DOCTYPE html>  
-<html>  
+<html  lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
-        <link rel="icon" href="image/1004 Logo 2.png">
         <meta name="description" content="YUM-YUM's restaurant and catering services food menu. We provide a huge selection of dishes, including vegetarian!">
         <meta name="keywords" content="restaurant, catering, menu, vegetarian, food">
         <meta charset="UTF-8">
