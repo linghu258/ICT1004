@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html  lang="en">
+    <head>
+        <title>TUMMY FOR YUMMY</title>
+    </head>
 <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <section class="container">
@@ -31,3 +36,4 @@
             </section>
         </nav>
 </header>
+</html>
