@@ -11,6 +11,8 @@ and open the template in the editor.
         <meta name="keywords" content="restaurant, catering, menu, reservation, home, food, open, 7">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="css/header_footer.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css" />
