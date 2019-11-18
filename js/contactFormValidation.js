@@ -79,20 +79,40 @@ function checkForms() {
         } 
     } 
     
-    if (isContactNameValid && isEmailValid && isContactPhoneNumberValid) {
+    if (txtContactMessage === "") {
+        contactMessage.style.borderColor = "red";
+        contactMessage.setCustomValidity("This is a required field!");
+        isContactMessageValid = false;
+    } else {
+        if (!chkComment(txtContactMessage)) {
+            contactMessage.style.borderColor = "red";
+            contactMessage.setCustomValidity("Please enter a valid number!");
+            isContactMessageValid = false;
+        } else {
+            contactMessage.style.borderColor = "green";
+            contactMessage.setCustomValidity("");
+            isContactMessageValid = true;
+        } 
+    } 
+    
+    if (isContactNameValid && isEmailValid && isContactPhoneNumberValid && isContactMessageValid) {
         contactForm.submit();
     }
 }
 
 
-function chkEmailSyntax(email) { //this is to check whether syntax of email is correct format or not, taken from: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+function chkEmailSyntax(email) { //this is to check whether syntax of email is correct format or not
     return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
 }
 
-function chkNameSyntax(name) { //this is to check whether syntax of name is correct format or not, taken from: https://salesforce.stackexchange.com/questions/41153/best-regex-for-first-last-name-validation
-    return /^([a-zA-Z']+)$/.test(name);
+function chkNameSyntax(name) { //this is to check whether syntax of name is correct format or not
+    return /^([a-zA-Z]+)$/.test(name);
 }
 
-function chkNumber(number) { 
+function chkNumber(number) { //this is to check whether syntax of number is correct format or not
     return /^([0-9]{8})$/.test(number);
+}
+
+function chkComment(comment) { ////this is to check whether syntax of comment is correct format or not
+    return /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(comment);
 }
