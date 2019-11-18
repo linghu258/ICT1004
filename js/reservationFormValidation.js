@@ -42,6 +42,10 @@ function validateReservationForm() {
     var paxvalue = paxstyle.value;
     var paxvalid = false;
     
+    var commentstyle = document.getElementById("res_comment");
+    var commentvalue = commentstyle.value;
+    var commentvalid = false;
+    
     //Validation for first name input
     if (fnamevalue === "") {
         fnamestyle.style.borderColor = "red";
@@ -144,8 +148,25 @@ function validateReservationForm() {
         paxvalid = true;
     }
     
+    //Validation for comment input    
+    if (commentvalue === "") {
+        commentstyle.style.borderColor = "red";
+        commentstyle.setCustomValidity("This field cannot be left blank");
+        commentvalid = false;
+    }
+    else if (!commentvalidation(commentvalue)){
+        commentstyle.style.borderColor = "red";
+        commentstyle.setCustomValidity("Please input a valid request");
+        commentvalid = false;
+    }
+    else {
+        commentstyle.style.borderColor = "green";
+        commentvalid = true;
+    }
+    
+    
     //If all input values is True/
-    if(fnamevalid & lnamevalid & emailvalid & cnumbervalid & resdatevalid & restimevalid & paxvalid === true) {
+    if(fnamevalid & lnamevalid & emailvalid & cnumbervalid & resdatevalid & restimevalid & paxvalid & commentvalid === true) {
         alert("Confirmation email for the reservation has been send. Thank You");
         location.href = "index.php";
         reservationForm.submit();
@@ -168,5 +189,9 @@ function cnumbervalidation(number) {
 }
 
 function paxvalidation(paxnum) {
-    return /^([0-9])$/.test(paxnum);
+    return /^([0-9])+$/.test(paxnum);
+}
+
+function commentvalidation(comment) {
+    return /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(comment);
 }
