@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/header_footer.css">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -11,16 +12,18 @@
     </head>
 
     <body>      
+        <?php
+            include "navbar.inc.php";
+        ?>
+        
         <article class="formvalidateOutput">
             <?php
-            //encryption key
-            $key = 'qkwjdiw239&&jdafweihbrhnan&^%$ggdnawhd4njshjwuuO';
             // Constants for accessing our DB:
             define("DBHOST", "161.117.122.252"); 
             define("DBNAME", "p2_5"); 
             define("DBUSER", "p2_5"); 
             define("DBPASS", "rBs4CTxkDU");  
-            $res_First_Name = $res_Last_Name = $resEmail = $res_ContactNumber = $resDate = $resTime= $resPax = $resComment = $errorMsg = "";
+            $res_First_Name = $res_Last_Name = $resEmail = $res_ContactNumber = $resDate = $resTime= $resPax = $res_comment = $errorMsg = "";
             $success = true; 
 
             if (empty($_POST["res_First_Name"])) {
@@ -32,7 +35,7 @@
                     $errorMsg .= "Please enter a proper first name.<br>";     
                     $success = false; 
                 } else {
-                    $res_First_Name = encryptthis(sanitize_input($_POST["res_First_Name"]), $key); 
+                    $res_First_Name = sanitize_input($_POST["res_First_Name"]); 
                 }
             }
             
@@ -45,7 +48,7 @@
                     $errorMsg .= "Please enter a proper last name.<br>";         
                     $success = false; 
                 } else {
-                    $res_Last_Name = encryptthis(sanitize_input($_POST["res_Last_Name"]), $key);    
+                    $res_Last_Name = sanitize_input($_POST["res_Last_Name"]);    
                 }
             }
             
@@ -59,7 +62,7 @@
                     $success = false;       
                 }
                 else {
-                    $resEmail = encryptthis(sanitize_input($_POST["resEmail"]), $key);
+                    $resEmail = sanitize_input($_POST["resEmail"]);
                 }
             } 
             
@@ -72,7 +75,7 @@
                     $errorMsg .= "Please enter a valid contact number.<br>";         
                     $success = false; 
                 } else {
-                    $res_ContactNumber = encryptthis(sanitize_input($_POST["res_ContactNumber"]), $key);    
+                    $res_ContactNumber = sanitize_input($_POST["res_ContactNumber"]);    
                 }
             }
             
@@ -95,27 +98,35 @@
                 $success = false; 
             } else {
                 $resPax = sanitize_input($_POST["resPax"]); 
-                if (!preg_match("/^([0-9])$/", $resPax)) {
+                if (!preg_match("/^([0-9])+$/", $resPax)) {
                     $errorMsg .= "Please enter a valid number.<br>";     
                     $success = false; 
                 }
             }
             
-            if (empty($_POST["resComment"])) {
-                $errorMsg .= "Number of pax is required.<br>";     
-                $success = false; 
+            if (empty($_POST["res_comment"])) {
+                $errorMsg .= "Please input a comment. If there is no comment, input 'NIL'<br>";     
+                $success = false;  
             } else {
-                $resComment = sanitize_input($_POST["resComment"]); 
+                $res_comment = sanitize_input($_POST["res_comment"]); 
+                if (!preg_match_all("/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/", $res_comment)) {
+                    $errorMsg .= "Please enter a valid comment.<br>";     
+                    $success = false; 
+                } else {
+                    $res_comment = sanitize_input($_POST["res_comment"]); 
+                }
             }
               
             
             if ($success) {     
-                echo '<script>alert("Your reservation has been confirmed."); </script>';
-                header('Refresh:0; url=index.php');
+                //echo '<script>alert("Your reservation has been confirmed."); </script>';
+                header('Location: index.php');
                 saveMemberToDB();
             } else {    
-                echo '<script>alert("Please check your form and submit again."); </script>';
-                header('Location: reservation.php');
+                echo "<h1>Please verify your reservation!</h1>";
+                echo "<h4>The following input errors were detected:</h4>";     
+                echo "<p>" . $errorMsg . "</p>";   
+                header('Refresh:3; url=reservation.php');
             } 
             
             //Helper function that checks input for malicious or unwanted content. 
@@ -124,11 +135,11 @@
                 $data = stripslashes($data);   
                 $data = htmlspecialchars($data);   
                 return $data; 
-            }
+            }    
             
             //Save user input into database.
             function saveMemberToDB() {  
-                global $res_First_Name, $res_Last_Name, $resEmail, $res_ContactNumber, $resDate, $resTime, $resPax, $resComment, $errorMsg; 
+                global $res_First_Name, $res_Last_Name, $resEmail, $res_ContactNumber, $resDate, $resTime, $resPax, $res_comment, $errorMsg; 
                 // Create connection     
                 $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                 // Check connection     
@@ -136,29 +147,17 @@
                     $errorMsg = "Connection failed: " . $conn->connect_error;                               
                 } else {         
                     $compile = $conn->prepare("INSERT INTO customer_reservation (fname, lname, email, mobileNumber, reservationDate, reservationTime, reservationPax, reservationRequest) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                    $compile->bind_param("ssssssis", $res_First_Name, $res_Last_Name, $resEmail, $res_ContactNumber, $resDate, $resTime, $resPax, $resComment);
+                    $compile->bind_param("ssssssis", $res_First_Name, $res_Last_Name, $resEmail, $res_ContactNumber, $resDate, $resTime, $resPax, $res_comment);
                     $compile->execute();
                     $compile->close();
-                    //$sql = "INSERT INTO customer_reservation (fname, lname, email, mobileNumber, reservationDate, reservationTime, reservationPax, reservationRequest)";         
-                    //$sql .= " VALUES ('$res_First_Name', '$res_Last_Name', '$resEmail', '$res_ContactNumber', '$resDate', '$resTime', '$resPax', '$resComment')"; 
-                    // Execute the query         
-                    //if (!$conn->query($sql)) {             
-                    //    $errorMsg = "Database error: " . $conn->error;             
-                    //    $success = false;                          
-                    //}     
                 } 
                 $conn->close(); } 
-                
-            function encryptthis($data, $key) {
-                $encryption_key = base64_decode($key);
-                $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-                $encrypted = openssl_encrypt($data, 'aes-256-cbc', $encryption_key, 0, $iv);
-                return base64_encode($encrypted . '::' . $iv);
-            }
             
-            ?> 
+            ?>     
             
-            
+            <?php
+            include "footer.inc.php";
+            ?>
         </article>
     </body>
 </html>
