@@ -1,6 +1,5 @@
 <!-- MySQL Connection -->
 <?php
-    
     // Constants for accessing our DB:
     define("DBHOST", "161.117.122.252");
     define("DBNAME", "p2_5");
@@ -54,8 +53,8 @@
         $success = false;
     } else {
         $mobileNumber = sanitize_input($_POST["mobileNumber"]);
-        if (!preg_match('/^[0-9]{8}+$/', $mobileNumber)) {
-            $errorMsg .= "Mobile Number is not valid. Please enter only 8 digits.";
+        if (!preg_match('/^[8-9][0-9]{8}+$/', $mobileNumber)) {
+            $errorMsg .= "Mobile Number is not valid. Please enter only 8 digits and it must start with 8/9.";
             $success = false;
         }
     }
