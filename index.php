@@ -80,7 +80,7 @@ and open the template in the editor.
                     <!--Url: https://unsplash.com/photos/zk5vJ8Duw9k | Author: Hansel Louis | Publish: August, 2019 | Publisher: Unsplash | Visited: October 5, 2019-->
                 </figure>
             </section>
-            <button onclick="window.location.href='about_contact.html'" class="btn-RM">READ MORE</button>
+            <button onclick="window.location.href='about_contact.php'" class="btn-RM">READ MORE</button>
         </section>
     </main>
 
