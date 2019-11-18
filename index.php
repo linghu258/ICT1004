@@ -7,6 +7,7 @@ and open the template in the editor.
 <html lang="en">
     <head>
         <title>TUMMY FOR YUMMY</title>
+        <link rel="icon" href="image/1004_Logo_2.png">
         <meta name="description" content="YUM-YUM is a Singapore restaurant and catering business. Wide range of affordable and delicious food. Open all-day, seven days a week.">
         <meta name="keywords" content="restaurant, catering, menu, reservation, home, food, open, 7">
         <meta charset="UTF-8">
@@ -27,32 +28,32 @@ and open the template in the editor.
         ?>
         
     <main>
-        <section class="container-fluid">
-            <section id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="container-fluid">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#myCarousel" data-slide-to="1"></li>
                 </ul>
 
                 <!-- Wrapper for slides -->
-                <section class="carousel-inner">
-                    <section class="item active ">
+                <div class="carousel-inner">
+                    <div class="item active ">
                         <img src="image/restaurant3wide.jpg" alt="reservationimage" class="img-responsive">
                         <section class="carousel-caption">
                             <h2 class="carousel-txt-size">WELCOME</h2>
                             <button onclick="window.location.href='reservation.php'" class="btncaro">RESERVE A
                                 TABLE</button>
                         </section>
-                    </section>
+                    </div>
                     
-                    <section class="item">
+                    <div class="item">
                         <img src="image/catering.jpg" alt="cateringimage" class="img-responsive">
                         <section class="carousel-caption">
                             <h2 class="carousel-txt-size">CATERING</h2>
                             <button onclick="window.location.href='catering.php'" class="btncaro">ORDER NOW</button>
                         </section>
-                    </section>
-                </section>
+                    </div>
+                </div>
 
                 <!-- Left and right controls -->
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -63,11 +64,11 @@ and open the template in the editor.
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
-            </section>
-        </section>
+            </div>
+        </div>
 
-        <section id="container_aboutus" class="container">
-            <section class="row">
+        <div id="container_aboutus" class="container">
+            <div class="row">
                 <section class="col-sm-6">
                     <h2 class="history-txt-size">HISTORY</h2>
                     <h2>ABOUT US</h2>
@@ -81,9 +82,9 @@ and open the template in the editor.
                      <img src="image/kitchen.jpg" class="img-responsive" alt="kitchen">
                     <!--Url: https://unsplash.com/photos/zk5vJ8Duw9k | Author: Hansel Louis | Publish: August, 2019 | Publisher: Unsplash | Visited: October 5, 2019-->
                 </figure>
-            </section>
+            </div>
             <button onclick="window.location.href='about_contact.php'" class="btn-RM">READ MORE</button>
-        </section>
+        </div>
     </main>
 
     <!-- Admin Login Modal Form -->
