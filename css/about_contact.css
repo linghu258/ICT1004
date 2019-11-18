@@ -47,20 +47,6 @@ article{
   margin: 50px auto 100px auto;
 }
 
-#submit {
-    width: 95%;
-    height: 50px;
-    color: white;
-    background-color: black;
-    border-radius: 15px;
-    border: solid 1px #b3aca7;
-}
-
-#submit:hover {
-    background-color: transparent;
-    color: black;
-}
-
 /* Contact Us section */
 #contactusRow{
     display: flex;
@@ -93,5 +79,16 @@ article{
 #btnSubmit {
     background: black;
     color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#btnSubmit:hover{
+    background-color: transparent;
+    color: black;
     border-color: black;
 }
