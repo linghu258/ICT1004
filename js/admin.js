@@ -115,16 +115,6 @@ myInput.onkeyup = function () {
 function validateForm() {
  
     var regName = /^[a-zA-Z]+$/;
-    var firstname = document.forms["accountProfileForm"]["fname"].value;
-    if(firstname === ""){
-        alert("First Name must be filled in");
-        return false;
-      }
-    else if(!regName.test(firstname)){
-         alert('Please enter a valid first name');
-        return false;
-      }
-
     var firstname = document.forms["createAccountForm"]["fname"].value;
     if(firstname === ""){
     alert("First Name must be filled in");
@@ -134,17 +124,7 @@ function validateForm() {
         alert('Please enter a valid first name');
         return false;
     }
-
-    var lastname = document.forms["accountProfileForm"]["lname"].value;
-    if (lastname == "") {
-        alert("Last Name must be filled in");
-        return false;
-    }
-    else if(!regName.test(lastname)){
-        alert('Please enter a valid last name');
-        return false;
-    }
-
+        
     var lastname = document.forms["createAccountForm"]["lname"].value;
     if (lastname == "") {
         alert("Last Name must be filled in");
@@ -154,7 +134,6 @@ function validateForm() {
         alert('Please enter a valid last name');
         return false;
     }
-        
         
     var email = document.forms["accountProfileForm"]["email"].value;
     if (email == "") {
