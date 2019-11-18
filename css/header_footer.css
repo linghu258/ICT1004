@@ -46,3 +46,7 @@ footer h1 {
 #footerid {
     margin-bottom: 10px;
 }
+
+.footer-link-txt-responsiveness{
+    font-size: 1.3vw;
+}
