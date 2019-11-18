@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html  lang="en">
+<html lang="en">
     <head>
         <title>TUMMY FOR YUMMY</title>
         <meta name="description" content="YUM-YUM is a Singapore restaurant and catering business. Wide range of affordable and delicious food. Open all-day, seven days a week.">
@@ -34,19 +34,19 @@ and open the template in the editor.
 
                 <!-- Wrapper for slides -->
                 <section class="carousel-inner">
-                    <section class="item active">
-                        <img src="image/restaurant3wide.jpg" alt="reservationimage">
+                    <section class="item active ">
+                        <img src="image/restaurant3wide.jpg" alt="reservationimage" class="img-responsive">
                         <section class="carousel-caption">
-                            <p>WELCOME</p>
+                            <h2 class="carousel-txt-size">WELCOME</h2>
                             <button onclick="window.location.href='reservation.php'" class="btncaro">RESERVE A
                                 TABLE</button>
                         </section>
                     </section>
-
+                    
                     <section class="item">
-                        <img src="image/catering.jpg" alt="cateringimage">
+                        <img src="image/catering.jpg" alt="cateringimage" class="img-responsive">
                         <section class="carousel-caption">
-                            <p>CATERING</p>
+                            <h2 class="carousel-txt-size">CATERING</h2>
                             <button onclick="window.location.href='catering.php'" class="btncaro">ORDER NOW</button>
                         </section>
                     </section>
@@ -67,7 +67,7 @@ and open the template in the editor.
         <section id="container_aboutus" class="container">
             <section class="row">
                 <section class="col-sm-6">
-                    <h1>HISTORY</h1>
+                    <h2 class="history-txt-size">HISTORY</h2>
                     <h2>ABOUT US</h2>
                     <P>Welcome to YUM-YUM, a humble restaurant where our founder wanted to provide customer with yummy
                         food to fill their belly at affordable prices</P>
