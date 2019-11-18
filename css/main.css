@@ -6,6 +6,11 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
+body { 
+    padding-top: 50px; 
+}
+
+
 /*carousel slider*/
 .container-fluid {
     padding-left: 0px !important;
@@ -16,26 +21,34 @@
     width: auto;
     height: auto;
 }
-
+.carousel-txt-size{
+   position: absolute; 
+   margin: 0;
+   left: 28%;
+   top: -28%;
+   font-size: 6vw;
+   font-weight: bold;
+}
 .carousel-caption {
     position: absolute;
     margin: 0;
     color: white;
     left: 50%;
-    top: 40%;
-    font-size: 100px;
-    font-weight: bold;  
+    top: 50%;
+    font-size: 3vw;
+    font-weight: bold;
+    vertical-align: middle;
 }
 
 .btncaro {
     background: black;
     border: none;
     color: white;
-    padding: 15px 15px;
-    font-size: 20px;
+    padding: 0.3% 1.5%;
+    font-size: 2.5vw;
     cursor: pointer;
-    position: absolute;
-    left: 40%;
+    vertical-align: middle;
+    
 }
 
 
@@ -66,6 +79,10 @@
     color: black;
     border-color: black;
 }
+.history-txt-size{
+    font-size: 300%;
+}
+
 
 /* Admin */
 .btn.btn-success {
