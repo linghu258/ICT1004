@@ -76,12 +76,12 @@ and open the template in the editor.
                             
                             <div class="form-group">
                                 <label for="contactNumber">Contact Number:</label>
-                                <input type="tel" class="form-control" id="contactPhoneNumber" name="contactPhoneNumber" placeholder="PHONE NUMBER" pattern="/^([0-9']{8})$/" required="true">
+                                <input type="tel" class="form-control" id="contactPhoneNumber" name="contactPhoneNumber" placeholder="PHONE NUMBER" pattern="/^([0-9]{8})$/" maxlength="8" required="true">
                             </div>
                             
                             <div class="form-group">
                                 <label for="feedback">Feedback/Message:</label>
-                                <textarea class="form-control" id="contactMessage" name="contactMessage" placeholder="MESSAGE" required="true"></textarea>
+                                <textarea class="form-control" id="contactMessage" name="contactMessage" placeholder="MESSAGE" pattern="/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/" required="true"></textarea>
                             </div>
                             
                             <button type="submit" id="btnSubmit" class="btn btn-default">SUBMIT</button>
