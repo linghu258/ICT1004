@@ -86,7 +86,7 @@ function checkForms() {
     } else {
         if (!chkComment(txtContactMessage)) {
             contactMessage.style.borderColor = "red";
-            contactMessage.setCustomValidity("Please enter a valid number!");
+            contactMessage.setCustomValidity("Please enter a valid feedback!");
             isContactMessageValid = false;
         } else {
             contactMessage.style.borderColor = "green";
