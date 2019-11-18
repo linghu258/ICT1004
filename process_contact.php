@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/header_footer.css">
+        <link rel="stylesheet" href="css/process_contact.css">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -23,7 +24,7 @@
             define("DBNAME", "p2_5"); 
             define("DBUSER", "p2_5"); 
             define("DBPASS", "rBs4CTxkDU");  
-            $contactName = $email = $contactPhoneNumber = $errorMsg = "";
+            $contactName = $email = $contactPhoneNumber = $contactMessage = $errorMsg = "";
             $success = true; 
 
             if (empty($_POST["contactName"])) {
@@ -31,7 +32,7 @@
                 $success = false; 
             } else {
                 $contactName = sanitize_input($_POST["contactName"]); 
-                if (!preg_match("/^([a-zA-Z']+)$/", $contactName)) {
+                if (!preg_match("/^([a-zA-Z]+)$/", $contactName)) {
                     $errorMsg .= "Please enter a proper first name.<br>";     
                     $success = false; 
                 }
@@ -53,20 +54,32 @@
                 $success = false; 
             } else {
                 $contactPhoneNumber = sanitize_input($_POST["contactPhoneNumber"]); 
-                if (!preg_match("/^([0-9']{8})$/", $contactPhoneNumber)) {
+                if (!preg_match("/^([0-9]{8})$/", $contactPhoneNumber)) {
                     $errorMsg .= "Please enter a valid number.<br>";     
+                    $success = false; 
+                }
+            }
+            
+            if (empty($_POST["contactMessage"])) {
+                $errorMsg .= "Feed back is required.<br>";     
+                $success = false; 
+            } else {
+                $contactMessage = sanitize_input($_POST["contactMessage"]); 
+                if (!preg_match("/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/", $contactMessage)) {
+                    $errorMsg .= "Please enter a valid comment.<br>";     
                     $success = false; 
                 }
             }
 
             if ($success) {     
-                echo '<script>alert("Thank You. We will answer you back as soon as possible."); </script>';
-                header('Refresh:3; url=index.php');
-                saveMemberToDB();
-                
+                echo "<h1>Thank you for your feedback!</h1>";
+                echo "<p>We will get back to you as soon as possible.</p>";
+                echo "<p>Have a nice day.</p>";
+                header('Refresh:2; url=index.php');
+                saveMemberToDB();          
             } else {    
                 echo '<script>alert("Please check your form and submit again."); </script>';
-                header('Refresh:3; url=about_contact.php');
+                header('Location: about_contact.php');
             } 
             
             //Helper function that checks input for malicious or unwanted content. 
@@ -83,18 +96,17 @@
                 $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                 // Check connection     
                 if ($conn->connect_error) {            
-                    $errorMsg = "Connection failed: " . $conn->connect_error;         
-                    $success = false;                         
+                    $errorMsg = "Connection failed: " . $conn->connect_error;                               
                 } else {         
                     $sql = "INSERT INTO customer_enquiries (name, email, mobileNumber, enquiryMessage)";         
                     $sql .= " VALUES ('$contactName', '$email', '$contactPhoneNumber', '$contactMessage')"; 
-                    // Execute the query         
-                    if (!$conn->query($sql)) {             
-                        $errorMsg = "Database error: " . $conn->error;             
-                        $success = false;                          
-                    }     
+                    $compile = $conn->prepare("INSERT INTO customer_enquiries (name, email, mobileNumber, enquiryMessage) VALUES (?, ?, ?, ?)");
+                    $compile->bind_param("ssis", $contactName, $email, $contactPhoneNumber, $contactMessage);
+                    $compile->execute();
+                    $compile->close();
+                }  
+                $conn->close();
                 } 
-                $conn->close(); } 
             ?> 
             
         </article>
