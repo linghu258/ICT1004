@@ -33,7 +33,7 @@
                 $success = false; 
             } else {
                 $custname = sanitize_input($_POST["custname"]); 
-                if (!preg_match("/^([a-zA-Z']+)$/", $custname)) {
+                if (!preg_match("/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/", $custname)) {
                     $errorMsg .= "Please enter a proper first name.<br>";     
                     $success = false; 
                 } else {
@@ -61,7 +61,7 @@
                     $errorMsg .= "Please enter a valid contact number.<br>";         
                     $success = false; 
                 } else {
-                    $custnumber = encryptthis(sanitize_input($_POST["custnumber"]), $key); 
+                    $custnumber = sanitize_input($_POST["custnumber"]); 
                 }
             }
             
@@ -70,11 +70,11 @@
                 $success = false; 
             } else {
                 $streetadd = sanitize_input($_POST["streetadd"]); 
-                if (!preg_match("/^([A-Za-z0-9'\.\-\#\s\,])+$/", $streetadd)) {
+                if (!preg_match("/^([A-Za-z0-9'\.\-\s\,])+$/", $streetadd)) {
                     $errorMsg .= "Please enter a valid address.<br>";         
                     $success = false; 
                 } else {
-                    $streetadd = encryptthis(sanitize_input($_POST["streetadd"]), $key); 
+                    $streetadd = sanitize_input($_POST["streetadd"]); 
                 }
             }
             
@@ -87,7 +87,7 @@
                     $errorMsg .= "Please enter a valid blk number.<br>";         
                     $success = false; 
                 } else {
-                    $blknumber = encryptthis(sanitize_input($_POST["blknumber"]), $key);   
+                    $blknumber = sanitize_input($_POST["blknumber"]);  
                 }
             }
             
@@ -100,7 +100,7 @@
                     $errorMsg .= "Please enter a valid unit number.<br>";         
                     $success = false; 
                 } else {
-                    $unitnumber = encryptthis(sanitize_input($_POST["unitnumber"]), $key);   
+                    $unitnumber = sanitize_input($_POST["unitnumber"]);
                 }
             }
             
@@ -113,7 +113,7 @@
                     $errorMsg .= "Please enter a valid zipcode.<br>";         
                     $success = false; 
                 } else {
-                    $zipcode = encryptthis(sanitize_input($_POST["zipcode"]), $key); 
+                    $zipcode = sanitize_input($_POST["zipcode"]);
                 }
             }
             
@@ -136,11 +136,11 @@
                 $success = false; 
             } else {
                 $ccname = sanitize_input($_POST["ccname"]); 
-                if (!preg_match("/^([a-zA-Z']+)$/", $ccname)) {
+                if (!preg_match("/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/", $ccname)) {
                     $errorMsg .= "Please enter a valid credit card name.<br>";     
                     $success = false; 
                 } else {
-                    $ccname = encryptthis(sanitize_input($_POST["ccname"]), $key);    
+                    $ccname = sanitize_input($_POST["ccname"]);    
                 }
             }
             
@@ -194,10 +194,9 @@
                 echo "<h4>Have A Nice Day</h4>"; 
                 //header('Refresh:3; url=index.php');
             } else {    
-                echo "<h1>Oops!</h1>";
+                echo "<h1>Please check your payment input!</h1>";
                 echo "<h4>The following input errors were detected:</h4>";     
                 echo "<p>" . $errorMsg . "</p>"; 
-                echo "<a id='btnRegister' href='register.php' class='btn btn-default'>Return to Sign Up</a>";
                 header('Refresh:3; url=payment_information.php');
             } 
             
@@ -215,6 +214,24 @@
                 $encrypted = openssl_encrypt($data, 'aes-256-cbc', $encryption_key, 0, $iv);
                 return base64_encode($encrypted . '::' . $iv);
             }
+
+            //Save user information into database.
+            function saveCustomerInfoToDB() {  
+                global $custname, $custemail, $custnumber, $streetadd, $blknumber, $unitnumber, $zipcode, $deldate, $deltime, $errorMsg; 
+                // Create connection     
+                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+                // Check connection     
+                if ($conn->connect_error) {            
+                    $errorMsg = "Connection failed: " . $conn->connect_error;         
+                }
+                else{ //prepared statement
+                    $compile = $conn->prepare("INSERT INTO customer_information (name, email, mobileNumber, streetName, blkNumber, unitNumber, zipcode, deliveryDate, deliveryTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $compile->bind_param("ssisssiss", $custname, $custemail, $custnumber, $streetadd, $blknumber, $unitnumber, $zipcode, $deldate, $deltime);
+                    $compile->execute();
+                    $compile->close();
+                    $conn->close();
+                } 
+            } 
             
             //Save user information into database.
             function savePaymentInfoToDB() {  
@@ -236,26 +253,7 @@
                     $compile->close();
                     $conn->close();
                 } 
-            } 
-            
-            //Save user information into database.
-            function saveCustomerInfoToDB() {  
-                global $custname, $custemail, $custnumber, $streetadd, $blknumber, $unitnumber, $zipcode, $deldate, $deltime, $errorMsg; 
-                // Create connection     
-                $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-                // Check connection     
-                if ($conn->connect_error) {            
-                    $errorMsg = "Connection failed: " . $conn->connect_error;         
-                }
-                else{ //prepared statement
-                    $compile = $conn->prepare("INSERT INTO customer_information (name, email, mobileNumber, streetName, blkNumber, unitNumber, zipcode, deliveryDate, deliveryTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $compile->bind_param("ssisssiss", $custname, $custemail, $custnumber, $streetadd, $blknumber, $unitnumber, $zipcode, $deldate, $deltime);
-                    $compile->execute();
-                    $compile->close();
-                    $conn->close();
-                } 
-            } 
-            
+            }        
                 
             //Save user order into database.
             function saveOrderToTable() {
