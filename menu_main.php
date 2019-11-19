@@ -3,9 +3,10 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
 ?>
 
 <!DOCTYPE html>  
-<html>  
+<html lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
+        <link rel="icon" href="image/1004_Logo_2.png">
         <meta name="description" content="YUM-YUM's restaurant and catering services food menu. We provide a huge selection of dishes, including vegetarian!">
         <meta name="keywords" content="restaurant, catering, menu, vegetarian, food">
         <meta charset="UTF-8">
@@ -24,11 +25,13 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
         <?php
         include "navbar.inc.php";
         ?>
-        <section class="container-fluid imgcontainer">
+        <div class="container-fluid imgcontainer">
             <img class="figimage" src="image/MAIN.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
-        </section>
-
+        </div>
+        
+        <main>
+        
         <div class="container">
             <h1>FISH</h1>
             <hr>
@@ -45,8 +48,8 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
                             <section class="products">
                                 <img src="image/<?php echo $product['resmenu_img']; ?>" title="<?php echo $product['resmenu_alt'] ?>" alt="<?php echo $product['resmenu_alt'] ?>" class="img-responsive" />
                                 <h2 class="text-info"><?php echo $product['resmenu_name']; ?></h2>
-                                <h4 class="text-secondary"><?php echo $product['resmenu_description']; ?></h4><br>
-                                <h4>Price: $<?php echo $product['resmenu_price']; ?></h4>
+                                <h3 class="text-secondary"><?php echo $product['resmenu_description']; ?></h3><br>
+                                <h3>Price: $<?php echo $product['resmenu_price']; ?></h3>
                             </section>
                         </div>
                         <?php
@@ -72,8 +75,8 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
                             <section class="products">
                                 <img src="image/<?php echo $product['resmenu_img']; ?>" title="<?php echo $product['resmenu_alt'] ?>" alt="<?php echo $product['resmenu_alt'] ?>" class="img-responsive" />
                                 <h2 class="text-info"><?php echo $product['resmenu_name']; ?></h2>
-                                <h4 class="text-secondary"><?php echo $product['resmenu_description']; ?></h4><br>
-                                <h4>Price: $<?php echo $product['resmenu_price']; ?></h4>
+                                <h3 class="text-secondary"><?php echo $product['resmenu_description']; ?></h3><br>
+                                <h3>Price: $<?php echo $product['resmenu_price']; ?></h3>
                             </section>
                         </div>
                         <?php
@@ -99,8 +102,8 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
                             <section class="products">
                                 <img src="image/<?php echo $product['resmenu_img']; ?>" title="<?php echo $product['resmenu_alt'] ?>" alt="<?php echo $product['resmenu_alt'] ?>" class="img-responsive" />
                                 <h2 class="text-info"><?php echo $product['resmenu_name']; ?></h2>
-                                <h4 class="text-secondary"><?php echo $product['resmenu_description']; ?></h4><br>
-                                <h4>Price: $<?php echo $product['resmenu_price']; ?></h4>
+                                <h3 class="text-secondary"><?php echo $product['resmenu_description']; ?></h3><br>
+                                <h3>Price: $<?php echo $product['resmenu_price']; ?></h3>
                             </section>
                         </div>
                         <?php
@@ -110,6 +113,8 @@ $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
             ?>
         </div>
 
+        </main>    
+            
         <?php
         include "footer.inc.php";
         ?>
