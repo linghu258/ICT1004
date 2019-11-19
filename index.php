@@ -41,7 +41,7 @@ and open the template in the editor.
                         <img src="image/restaurant3wide.jpg" alt="reservationimage" class="img-responsive">
                         <!--Url: https://unsplash.com/photos/sQopSb2K0CU | Author: Seaman Andrea | Publish: March,2018 | Publisher: unsplash| Visted: October 5, 2019-->
                         <section class="carousel-caption">
-                            <h1 class="carousel-txt-size">WELCOME</h2>
+                            <h1 class="carousel-txt-size">WELCOME</h1>
                             <button onclick="window.location.href='reservation.php'" class="btncaro">RESERVE A
                                 TABLE</button>
                         </section>
@@ -51,7 +51,7 @@ and open the template in the editor.
                         <img src="image/catering.jpg" alt="cateringimage" class="img-responsive">
                         <!--Url: http://binkassim.com/gallery.html | Publisher: binkssim | Visted: October 5, 2019-->
                         <section class="carousel-caption">
-                            <h1 class="carousel-txt-size">CATERING</h2>
+                            <h1 class="carousel-txt-size">CATERING</h1>
                             <button onclick="window.location.href='catering.php'" class="btncaro">ORDER NOW</button>
                         </section>
                     </div>
