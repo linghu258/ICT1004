@@ -58,3 +58,9 @@ label {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+#btnReservation:hover{
+    background-color: transparent !important;
+    color: black !important;
+    border-color: black !important;
+}
