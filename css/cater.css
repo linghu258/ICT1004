@@ -69,7 +69,22 @@ th{
 }
 
 .btn-info {
+    background: black !important;
+    border-color: black !important;
     width: 100%;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.btn-info:hover{
+    background-color: transparent !important;
+    color: black !important;
+    border-color: black !important;
 }
 
 .btn-danger {
