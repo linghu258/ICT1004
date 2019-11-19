@@ -70,7 +70,7 @@
                 $success = false; 
             } else {
                 $streetadd = sanitize_input($_POST["streetadd"]); 
-                if (!preg_match("/^([A-Za-z0-9'\.\-\s\,])+$/", $streetadd)) {
+                if (!preg_match("/^([A-Za-z0-9\.\-\s\,])+$/", $streetadd)) {
                     $errorMsg .= "Please enter a valid address.<br>";         
                     $success = false; 
                 } else {
@@ -124,7 +124,7 @@
                 $deldate = sanitize_input($_POST["deldate"]); 
             }
             
-            if ($_POST["deltime"] == 0) {
+            if ($_POST["deltime"] == "0") {
                 $errorMsg .= "Please select a time.<br>";     
                 $success = false; 
             } else {
@@ -136,7 +136,7 @@
                 $success = false; 
             } else {
                 $ccname = sanitize_input($_POST["ccname"]); 
-                if (!preg_match("/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/", $ccname)) {
+                if (!preg_match("/^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$/", $ccname)) {
                     $errorMsg .= "Please enter a valid credit card name.<br>";     
                     $success = false; 
                 } else {
@@ -184,15 +184,14 @@
             }
             
             if ($success) {     
-                //header('Location: cart_information.php');
                 saveCustomerInfoToDB();
                 savePaymentInfoToDB();
                 saveOrderToTable();
                 echo "<h1>Your Order Has been Placed!</h1>";
                 echo "<h2>Thank You For Your Support</h2>";    
-                echo "<h4>A email will be send to you shortly</h4>"; 
-                echo "<h4>Have A Nice Day</h4>"; 
-                //header('Refresh:3; url=index.php');
+                echo "<h3>Have A Nice Day</h3>"; 
+                header('Refresh:3; url=index.php');
+                exit();
             } else {    
                 echo "<h1>Please check your payment input!</h1>";
                 echo "<h4>The following input errors were detected:</h4>";     
@@ -259,7 +258,7 @@
             function saveOrderToTable() {
                 session_start();
                 global $errorMsg;
-                $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
+                $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
                 $array = $_SESSION['shopping_cart'];
                 if ($connect->connect_error) {
                     $errorMsg = "Connection failed: " . $connect->connect_error;  
