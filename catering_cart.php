@@ -77,7 +77,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
 <html>  
     <head>
         <title>TUMMY FOR YUMMY</title>
-        <link rel="icon" href="image/1004 Logo 2.png">
+        <link rel="icon" href="image/1004_Logo_2.png">
         <meta name="description" content="YUM-YUM's restaurant and catering services food menu. We provide a huge selection of dishes, including vegetarian!">
         <meta name="keywords" content="restaurant, catering, menu, vegetarian, food">
         <meta charset="UTF-8">
@@ -97,10 +97,10 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
         include "navbar.inc.php";
         ?>
 
-        <section class="container-fluid imgcontainer">
+        <div class="container-fluid imgcontainer">
             <img class="figimage" src="image/CATERING.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
-        </section>
+        </div>
 
         <div class="container">
             <h1>Please Select the following set:</h1>
@@ -115,7 +115,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
                         <div class="col-sm-4 col-md-3">
                             <form method="post" action="catering_cart.php?action=add&id=<?php echo $product['cmenu_id']; ?>">
                                 <section class="products">
-                                    <img src="image/<?php echo $product['cmenu_image']; ?>" class="img-responsive" />
+                                    <img src="image/<?php echo $product['cmenu_image']; ?>" class="img-responsive" alt="menu image"/>
                                     <h2 class="text-info"><?php echo $product['cmenu_name']; ?></h2>
                                     <h3>Set Contains: </h3>
                                     <h4 class="text-info"><?php echo nl2br($product['cmenu_description']); ?></h4>
