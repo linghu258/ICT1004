@@ -122,7 +122,7 @@ function validateReservationForm() {
     }
     
     //Validation for time input
-    if (restimevalue === 0) {
+    if (restimevalue === "0") {
         restimestyle.style.borderColor = "red";
         restimestyle.setCustomValidity("Please select a time");
         restimevalid = false;
