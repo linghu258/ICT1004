@@ -38,42 +38,42 @@ $array = $_SESSION['shopping_cart'];
             <section class="col-sm-6">
             <h2>Customer information:</h2>
             <section class="form-group">
-                <label>Customer Name:</label>
+                <label for="custname">Customer Name:</label>
                 <input type="text" class="form-control" placeholder="Enter your full name" id="custname" name="custname"
                        pattern="/^([a-zA-Z']+)$/" title="Please input a name" required>
 
-                <label>Email address:</label>
+                <label for="custemail">Email address:</label>
                 <input type="email" class="form-control" placeholder="Enter email" id="custemail" name="custemail"
                        pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
                        title="Please input a valid email" required>
 
-                <label>Contact Number:</label>
+                <label for="custnumber">Contact Number:</label>
                 <input type="tel" class="form-control" placeholder="Enter contact number" id="custnumber" name="custnumber"
                        pattern="/^([0-9]{8})$/" maxlength="8" title="please input a valid number" required>
             </section>
 
             <h2>Address Information:</h2>
             <section class="form-group">
-                <label>Street Name:</label>
+                <label for="streetadd">Street Name:</label>
                 <input type="text" class="form-control" placeholder="Enter street name" id="streetadd" name="streetadd"
                        pattern="/^([A-Za-z0-9'\.\-\#\s\,])+$/" title="Please input a valid address" required>
 
-                <label>Blk Number:</label>
+                <label for="blknumber">Blk Number:</label>
                 <input type="tel" class="form-control" placeholder="Enter block number" id="blknumber" name="blknumber"
                        pattern="/^([0-9]{3})$/" maxlength="3" title="Please input a valid blk number" required>
 
-                <label>Unit Number:</label>
-                <input type="tel" class="form-control" placeholder="Enter unit number" id="unitnumber" name="unitnumber"
+                <label for="unitnumber">Unit Number:</label>
+                <input type="tel" class="form-control" placeholder="Enter unit number: xx-xxx " id="unitnumber" name="unitnumber"
                        pattern="/^([0-9]{2}\-[0-9]{3})$/" maxlength="6" title="Please input a valid blk number" required>
 
-                <label>Zip Code:</label>
+                <label for="zipcode">Zip Code:</label>
                 <input type="tel" class="form-control" placeholder="Enter zip code" id="zipcode" name="zipcode" pattern="/^([0-9]{6})$/"
                        maxlength="6" title="Please input a valid blk number" required>
 
-                <label>Delivery Date:</label>
+                <label for="deldate">Delivery Date:</label>
                 <input type="date" class="form-control" id="deldate" name="deldate" required>
 
-                <label>Delivery Time:</label> <br>
+                <label for="deltime">Delivery Time:</label> <br>
                 <select id="deltime" name="deltime" required="true">
                     <option value="0">--Select Time--</option>
                     <option value="09am">09:00 AM</option>
@@ -96,26 +96,25 @@ $array = $_SESSION['shopping_cart'];
             <!--half of the bigger col-->
             <h2>Credit Card Information:</h2>
             <section class="form-group">
-                <label>Full Name:</label>
+                <label for="ccname">Full Name:</label>
                 <input type="text" class="form-control" placeholder="Enter your full name" id="ccname" name="ccname"
                        pattern="/^([a-zA-Z']+)$/" title="Please input a name" required>
 
-                <label>Credit Card Number:</label>
+                <label for="ccnumber">Credit Card Number:</label>
                 <input type="tel" class="form-control" placeholder="Enter credit card number" id="ccnumber" name="ccnumber"
                        pattern="/^([0-9]{16})$/" maxlength="16" title="Please input a valid credit card number" required>
 
-                <label>Exp:</label>
-                <input type="tel" class="form-control" placeholder="Enter expiry month Example: mm-yy (10/20)"
+                <label for="expdate">Exp:</label>
+                <input type="tel" class="form-control" placeholder="Enter expiry month: mm/yy"
                        id="expdate" name="expdate" pattern="/^([0-9]{2}\/[0-9]{2})$/" maxlength="5" title="Please input a valid exp date"
                        required>
 
-                <label>CCV:</label>
+                <label for="ccvnumber">CCV:</label>
                 <input type="tel" class="form-control" placeholder="Enter CCV number" id="ccvnumber" name="ccvnumber"
                        pattern="/^([0-9]{3})$/" maxlength="3" title="Please input a valid ccv number" required>
             </section>
         </section>
-                <button type="submit" id="btnPayment" class="btn btn-default">PROCEED TO CHECKOUT</button>
-    </section> 
+            <button type="submit" id="btnPayment" class="btn btn-default">PROCEED TO CHECKOUT</button>
 </form>
         
         <?php
