@@ -7,19 +7,18 @@
  */
 
 ?>
-
 <header>
         <nav class="navbar navbar-default navbar-fixed-top">
-            <section class="container">
-                <section class="navbar-header">
+            <div class="container">
+                <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">YUM-YUM</a>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" title="navigation bar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </section>
-                <section class="collapse navbar-collapse" id="myNavbar">
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar">
                         <li><a href="index.php">HOME</a></li>
                         <li class="dropdown">
@@ -46,7 +45,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="catering_cart.php"><span class="glyphicon glyphicon-shopping-cart"></span>ORDER CATERING</a></li>
                     </ul>
-                </section>
-            </section>
+                </div>
+            </div>
         </nav>
-    </header>
+</header>
