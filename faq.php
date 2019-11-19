@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html lang="en">
     <head>
         <title>TUMMY FOR YUM-YUM</title>
         <link rel="icon" href="image/1004 Logo 2.png">
@@ -30,7 +30,7 @@ and open the template in the editor.
             <img class="figimage" src="image/FAQ.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
         </section>
-
+        <main>
         <article>
             <h1>Catering Inquiries</h1>
             <hr>
@@ -157,7 +157,7 @@ and open the template in the editor.
                 </div>
             </div>
         </article>
-        
+        </main>
         <?php
             include "footer.inc.php";
         ?>
