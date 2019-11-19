@@ -74,7 +74,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
 ?>
 
 <!DOCTYPE html>  
-<html>  
+<html lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
         <link rel="icon" href="image/1004_Logo_2.png">
@@ -101,7 +101,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
             <img class="figimage" src="image/CATERING.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
         </div>
-
+        <main>
         <div class="container">
             <h1>Please Select the following set:</h1>
             <?php
@@ -199,7 +199,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
                 </table>
             </div>
         </div>
-
+        </main>
         <?php
         include "footer.inc.php";
         ?>
