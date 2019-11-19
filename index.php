@@ -40,7 +40,7 @@ and open the template in the editor.
                     <div class="item active ">
                         <img src="image/restaurant3wide.jpg" alt="reservationimage" class="img-responsive">
                         <section class="carousel-caption">
-                            <h2 class="carousel-txt-size">WELCOME</h2>
+                            <h1 class="carousel-txt-size">WELCOME</h2>
                             <button onclick="window.location.href='reservation.php'" class="btncaro">RESERVE A
                                 TABLE</button>
                         </section>
@@ -49,7 +49,7 @@ and open the template in the editor.
                     <div class="item">
                         <img src="image/catering.jpg" alt="cateringimage" class="img-responsive">
                         <section class="carousel-caption">
-                            <h2 class="carousel-txt-size">CATERING</h2>
+                            <h1 class="carousel-txt-size">CATERING</h2>
                             <button onclick="window.location.href='catering.php'" class="btncaro">ORDER NOW</button>
                         </section>
                     </div>
