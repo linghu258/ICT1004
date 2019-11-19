@@ -1,6 +1,7 @@
 <?php
 session_start();
 $product_ids = array();
+//session_destroy();
 $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
 
 //check if Add to Cart button has been submitted
@@ -17,8 +18,8 @@ if (filter_input(INPUT_POST, 'add_to_cart')) {
                 (
                 'id' => filter_input(INPUT_GET, 'id'),
                 'name' => filter_input(INPUT_POST, 'name'),
-                'price' => filter_input(INPUT_POST, 'price')* filter_input(INPUT_POST, 'quantity'),
-                'pax' => filter_input(INPUT_POST, 'pax') + filter_input(INPUT_POST, 'pax'),
+                'price' => filter_input(INPUT_POST, 'price') * filter_input(INPUT_POST, 'quantity'),
+                'pax' => filter_input(INPUT_POST, 'pax') * filter_input(INPUT_POST, 'quantity'),
                 'quantity' => filter_input(INPUT_POST, 'quantity')
             );
         } else { //product already exists, increase quantity
@@ -69,13 +70,7 @@ if (filter_input(INPUT_GET, 'action') == 'addtodb') {
         } 
     }
 }
-pre_r($_SESSION);
 
-function pre_r($array) {
-    echo '<pre>';
-    print_r($array);
-    echo '</pre>';
-}
 ?>
 
 <!DOCTYPE html>  
@@ -108,17 +103,18 @@ function pre_r($array) {
         </section>
 
         <div class="container">
+            <h1>Please Select the following set:</h1>
             <?php
             $query = "SELECT * FROM p2_5.catering_menu ORDER BY cmenu_id ASC";
             $result = mysqli_query($connect, $query);
 
-            if ($result):
-                if (mysqli_num_rows($result) > 0):
-                    while ($product = mysqli_fetch_assoc($result)):
+            if ($result){
+                if (mysqli_num_rows($result) > 0){
+                    while ($product = mysqli_fetch_assoc($result)){
                         ?>
                         <div class="col-sm-4 col-md-3">
                             <form method="post" action="catering_cart.php?action=add&id=<?php echo $product['cmenu_id']; ?>">
-                                <div class="products">
+                                <section class="products">
                                     <img src="image/<?php echo $product['cmenu_image']; ?>" class="img-responsive" />
                                     <h2 class="text-info"><?php echo $product['cmenu_name']; ?></h2>
                                     <h3>Set Contains: </h3>
@@ -130,13 +126,13 @@ function pre_r($array) {
                                     <input type="hidden" name="price" value="<?php echo $product['cmenu_price']; ?>" />
                                     <input type="hidden" name="pax" value="<?php echo $product['cmenu_pax']; ?>" />
                                     <input type="submit" name="add_to_cart" style="margin-top: 5px;" class="btn btn-info" value="Add to Cart" />
-                                </div>
+                                </section>
                             </form>
                         </div>
                         <?php
-                    endwhile;
-                endif;
-            endif;
+                    }
+                }
+            }
             ?>
             <div style="clear:both"></div>
             <br />
@@ -152,10 +148,10 @@ function pre_r($array) {
                         <th width="5%">Action</th>
                     </tr>
                     <?php
-                    if (!empty($_SESSION['shopping_cart'])):
+                    if (!empty($_SESSION['shopping_cart'])){
                         $total = 0;
                         $totalpax = 0;
-                        foreach ($_SESSION['shopping_cart'] as $key => $product):
+                        foreach ($_SESSION['shopping_cart'] as $key => $product){
                             ?>
                             <tr>
                                 <td><?php echo $product['name']; ?></td>
@@ -170,34 +166,35 @@ function pre_r($array) {
                                 </td>
                             </tr>
                             <?php
-                            $total = ($product['price'] * $product['quantity']);
-                        endforeach;
+                            $total = $total + ($product['price'] * $product['quantity']);
+                        }
                         ?>
                         <tr>
                             <td>TOTAL:</td>
                             <td></td>
                             <td></td>
-                            <td><?php echo $product['pax']; ?></td>
+                            <td></td>
                             <td>$ <?php echo number_format($total, 2); ?></td>
+                        <hr>
                             <td></td>
                         </tr>
                         <tr>
                             <!--Show checkout button only if the shopping cart is not empty-->
-                            <td></td>
+                          
                             <td colspan="5">
                                 <?php
-                                if (isset($_SESSION['shopping_cart'])):
-                                    if (count($_SESSION['shopping_cart']) > 0):
+                                if (isset($_SESSION['shopping_cart'])){
+                                    if (count($_SESSION['shopping_cart']) > 0){
                                         ?>
                                         <a href="payment_information.php" class="button">CheckOut</a>
                                         <?php
-                                    endif;
-                                endif;
+                                    }
+                                }
                                 ?>
                             </td>
                         </tr>
                         <?php
-                    endif;
+                    }
                     ?>
                 </table>
             </div>
