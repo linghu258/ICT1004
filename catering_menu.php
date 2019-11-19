@@ -1,5 +1,5 @@
 <!DOCTYPE html>  
-<html>  
+<html lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
         <link rel="icon" href="image/1004 Logo 2.png">
@@ -25,7 +25,7 @@
             <img class="figimage" src="image/CATERING.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
         </section>
-        
+        <main>
         <div class="container">
             <?php
             $connect = mysqli_connect('161.117.122.252', 'p2_5', 'rBs4CTxkDU', 'p2_5');
@@ -40,11 +40,11 @@
                             <form method="post" action="TESTMENU.php?action=add&id=<?php echo $product['cmenu_id']; ?>">
                                 <div class="products">
                                     <img src="image/<?php echo $product['cmenu_image']; ?>" title="<?php echo $product['alt_text']?>" alt="<?php echo $product['alt_text']?>" class="img-responsive" />
-                                    <h2 class="text-info"><?php echo $product['cmenu_name']; ?></h2>
-                                    <h3>Set includes:</h3>
-                                    <h4 class="text-secondary"><?php echo nl2br($product['cmenu_description']); ?></h4><br>
-                                    <h4>Pax: <?php echo $product['cmenu_pax']; ?></h4>
-                                    <h4>Price: $<?php echo $product['cmenu_price']; ?></h4>
+                                    <h1 class="text-info"><?php echo $product['cmenu_name']; ?></h1>
+                                    <h2>Set includes:</h2>
+                                    <h3 class="text-secondary"><?php echo nl2br($product['cmenu_description']); ?></h3><br>
+                                    <h2>Pax: <?php echo $product['cmenu_pax']; ?></h2>
+                                    <h3>Price: $<?php echo $product['cmenu_price']; ?></h3>
                                     <input type="hidden" name="name" value="<?php echo $product['cmenu_name']; ?>" />
                                     <input type="hidden" name="price" value="<?php echo $product['cmenu_price']; ?>" />
                                     <input type="hidden" name="pax" value="<?php echo $product['cmenu_pax']; ?>" />
@@ -57,7 +57,7 @@
             endif;
             ?>
         </div>
-
+        </main>
         <?php
         include "footer.inc.php";
         ?>
