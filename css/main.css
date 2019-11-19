@@ -99,18 +99,19 @@ body {
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password], input[type=date] {
+input[type=text], input[type=email], input[type=password], input[type=date] {
     width: 95%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 20px 20px;
+    margin: 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
     border-radius: 15px;
+
 }
-  
+
 #loginbtn {
-    background-color: #324757;
+    background-color: black;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -135,7 +136,7 @@ input[type=text], input[type=password], input[type=date] {
   
   /* Center the image and position the close button */
 .flex-container, .containerbottom {
-    padding: 16px;
+    padding: 10px;
     width: 100%;
     border-radius: 10px;
     display: flex;

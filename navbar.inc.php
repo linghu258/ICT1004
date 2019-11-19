@@ -7,25 +7,26 @@
  */
 
 ?>
+
 <header>
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
+            <section class="container">
+                <section class="navbar-header">
                     <a class="navbar-brand" href="index.php">YUM-YUM</a>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" title="navigation bar">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
+                </section>
+                <section class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar">
                         <li><a href="index.php">HOME</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">MENU <span
                                     class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="menu_appetizer.php">Appetizer</a></li>
+                                <li><a href="menu_appetizer.php">APPETIZER</a></li>
                                 <li class="divider"></li>
                                 <li><a href="menu_main.php">MAIN</a></li>
                                 <li class="divider"></li>
@@ -45,7 +46,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="catering_cart.php"><span class="glyphicon glyphicon-shopping-cart"></span>ORDER CATERING</a></li>
                     </ul>
-                </div>
-            </div>
+                </section>
+            </section>
         </nav>
-</header>
+    </header>

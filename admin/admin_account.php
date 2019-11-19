@@ -1,78 +1,83 @@
 <?php
+// Start session
+session_start();
+
 // Constants for accessing our DB:
-    define("DBHOST", "161.117.122.252");
-    define("DBNAME", "p2_5");
-    define("DBUSER", "p2_5");
-    define("DBPASS", "rBs4CTxkDU");
-    $email = $fname = $lname = $mobileNumber = $errorMsg = "";
-    $success = true;
+define("DBHOST", "161.117.122.252");
+define("DBNAME", "p2_5");
+define("DBUSER", "p2_5");
+define("DBPASS", "rBs4CTxkDU");
+$email = $fname = $lname = $mobileNumber = $errorMsg = "";
+$success = true;
 
 //Helper function that checks input for malicious or unwanted content.
-    function sanitize_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
+function sanitize_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 // Create connection
-    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+$conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
 // Check connection
-    if ($conn->connect_error) {
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    } else {
-        $sql = "SELECT * FROM admin_table WHERE ";
-        $sql .= "email = 'admin1@yumyum.com'";
-        // Execute the query
-        $result = $conn->query($sql);
-        $conn->close();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            (isset($result)) ? $result->free_result() : "";
-            $fname = $row["fname"];
-            $lname = $row["lname"];
-            $email = $row["email"];
-            $mobileNumber = $row["mobileNumber"];
-            unset($row);
-        } else {
-            echo "No records.";
-        }
-    }
-?>
+if ($conn->connect_error) {
+    $errorMsg = "Connection failed: " . $conn->connect_error;
+    $success = false;
+} else {
 
-<!DOCTYPE html>
+    $email = $_SESSION['email'];
+
+    $sql = "SELECT * FROM admin_table WHERE ";
+    $sql .= "email = '$email'";
+    // Execute the query
+    $result = $conn->query($sql);
+    $conn->close();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        (isset($result)) ? $result->free_result() : "";
+        $fname = $row["fname"];
+        $lname = $row["lname"];
+        $email = $row["email"];
+        $mobileNumber = $row["mobileNumber"];
+        unset($row);
+    } else {
+        echo "No records.";
+    }
+}
+?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html lang="en">
+<head>
+    <title>TUMMY FOR YUMMY</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header_footer.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin_order.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <head>
-        <title>TUMMY FOR YUMMY</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/admin_order.css">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+    <script defer src="../js/admin.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-        <script defer src="../js/admin.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 
-    </head>
-
-    <body>
-    <?php
-    include 'adminHeader.inc.php';
-    ?>
+<body>
+    <main class="page-container">
+        <?php
+        include 'adminHeader.inc.php';
+        ?>
 
         <article>
             <section class="container">
+                <h1>Admin Account</h1>
                 <div class="row">
                     <div class="col-md-3">
                         <ul class="nav nav-pills nav-stacked">
@@ -87,32 +92,32 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>Adminstrator Profile</h4>
+                                        <p id="textHeadings">Adminstrator Profile</p>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <form name="accountProfileForm" action="process_update.php" onsubmit="return validateForm()" method="post">
+                                                <form name="accountProfileForm" action="process_update.php" onsubmit="return validateAccountForm()" method="post">
                                                     <div class="form-group row">
                                                         <label for="email" class="col-4 col-form-label">Email*</label>
                                                         <div class="col-8">
                                                             <input id="email" name="email" placeholder="Email"
-                                                                   class="form-control here" type="text" value="<?php echo $email; ?>" readonly>
+                                                                   class="form-control here" type="text" value="<?php echo $_SESSION['email']; ?>" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="firstname" class="col-4 col-form-label">First Name*</label>
                                                         <div class="col-8">
                                                             <input id="fname" name="fname" placeholder="First Name"
-                                                                   class="form-control here" type="text" value="<?php echo $fname; ?>" pattern="[a-zA-Z]+"
+                                                                   class="form-control here" type="text" value="<?php echo $_SESSION['fname']; ?>" pattern="[a-zA-Z]+"
                                                                    title="Invalid First Name. It must not contain numbers or special characters."
-                                                                   size="35">
+                                                                   size="35" aria-label="First Name">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="lastname" class="col-4 col-form-label">Last Name*</label>
                                                         <div class="col-8">
                                                             <input id="lname" name="lname" placeholder="Last Name"
-                                                                   class="form-control here" type="text" value="<?php echo $lname; ?>">
+                                                                   class="form-control here" type="text" value="<?php echo $_SESSION['lname']; ?>"" aria-label="Last Name">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -129,8 +134,6 @@ and open the template in the editor.
                                                     <div class="form-group row" style="text-align: center">
                                                         <div class="col-1">
                                                             <button name="submit" type="submit" class="btn">Confirm</button>
-                                                            <button name="cancel" type="cancel" class="btn"
-                                                                    onclick="goPrev()">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -146,14 +149,14 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>Change Password</h4>
+                                        <p id="textHeadings">Change Password</p>
                                         <hr>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form name="changePasswordForm" action="process_changePassword.php" onsubmit="return validateForm()" method="post">
+                                        <form name="changePasswordForm" action="process_changePassword.php" onsubmit="return validateChangePasswordForm()" method="post">
                                             <div class="form-group row">
                                                 <label for="currentPassword" class="col-4 col-form-label">Current
                                                     Password*</label>
@@ -183,7 +186,7 @@ and open the template in the editor.
                                             </div>
                                             <div class="form-group row">
                                                 <div id="message">
-                                                    <h4>Password must contain the following:</h4>
+                                                    <p id="textHeadings">Password must contain the following:</p>
                                                     <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
                                                     <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
                                                     <p id="number" class="invalid">A <b>number</b></p>
@@ -193,8 +196,6 @@ and open the template in the editor.
                                             <div class="form-group row" style="text-align: center">
                                                 <div class="col-1">
                                                     <button name="submit" type="submit" class="btn">Confirm</button>
-                                                    <button name="cancel" type="cancel" class="btn"
-                                                            onclick="goPrev()">Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -208,7 +209,7 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>Create Adminstrator Account</h4>
+                                        <p id="textHeadings">Create Adminstrator Account</p>
                                         <hr>
                                     </div>
                                 </div>
@@ -258,17 +259,17 @@ and open the template in the editor.
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="cpassword" class="col-4 col-form-label">Confirm
+                                                <label for="confirmPassword" class="col-4 col-form-label">Confirm
                                                     Password*</label>
                                                 <div class="col-8">
-                                                    <input id="cpassword" name="cpassword"
+                                                    <input id="confirmPassword" name="confirmPassword"
                                                            placeholder="Confirm Password" class="form-control here"
                                                            type="password" required="required">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div id="message">
-                                                    <h4>Password must contain the following:</h4>
+                                                    <p id="textHeadings">Password must contain the following:</p>
                                                     <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
                                                     <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
                                                     <p id="number" class="invalid">A <b>number</b></p>
@@ -278,8 +279,6 @@ and open the template in the editor.
                                             <div class="form-group row" style="text-align: center">
                                                 <div class="col-1">
                                                     <button name="submit" type="submit" class="btn">Confirm</button>
-                                                    <button name="cancel" type="cancel" class="btn"
-                                                            onclick="goPrev()">Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -294,10 +293,11 @@ and open the template in the editor.
             </section>
         </article>
 
-<?php
-include 'adminFooter.inc.php';
-?>
-    </body>
+        <?php
+        include 'adminFooter.inc.php';
+        ?>
+    </main>
+</body>
 
 
 </html>

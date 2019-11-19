@@ -26,12 +26,6 @@ function isNumber(evt) {
     return true;
 }
 
-//Cancel button redirects back to previous page
-function goPrev()
-{
-  window.history.back();
-}
-
 //Search table
 function tableFunction() {
     var input, filter, table, tr, td, i, txtValue;
@@ -116,7 +110,7 @@ function validateForm() {
  
     var regName = /^[a-zA-Z]+$/;
     var firstname = document.forms["createAccountForm"]["fname"].value;
-    if(firstname === ""){
+    if(firstname == ""){
     alert("First Name must be filled in");
     return false;
     }
@@ -130,17 +124,54 @@ function validateForm() {
         alert("Last Name must be filled in");
         return false;
     }
-    else if(!regName.test(lastname)){
-        alert('Please enter a valid last name');
-        return false;
-    }
         
-    var email = document.forms["accountProfileForm"]["email"].value;
+    var email = document.forms["createAccountForm"]["email"].value;
     if (email == "") {
       alert("Email must be filled in");
       return false;
     }
     
+    var newPassword = document.forms["createAccountForm"]["newPassword"].value;
+    if (newPassword == "") {
+      alert("New Password must be filled in");
+      return false;
+    }
+
+    var confirmPassword = document.forms["createAccountForm"]["confirmPassword"].value;
+    if (confirmPassword == "") {
+      alert("Confirm Password must be filled in");
+      return false;
+    }
+    
+    if(newPassword != confirmPassword)
+    {
+        alert("Password is incorrect");
+        return false;
+    }
+}
+
+function validateAccountForm() {
+ 
+    var regName = /^[a-zA-Z]+$/;
+    var firstname = document.forms["accountProfileForm"]["fname"].value;
+    if(firstname === ""){
+    alert("First Name must be filled in");
+    return false;
+    }
+    else if(!regName.test(firstname)){
+        alert('Please enter a valid first name');
+        return false;
+    }
+        
+    var lastname = document.forms["accountProfileForm"]["lname"].value;
+    if (lastname == "") {
+        alert("Last Name must be filled in");
+        return false;
+    }
+}
+
+function validateChangePasswordForm() {
+
     var currentPassword = document.forms["changePasswordForm"]["currentPassword"].value;
     if (currentPassword == "") {
       alert("Current Password must be filled in");
@@ -167,3 +198,4 @@ function validateForm() {
 
 
 }
+

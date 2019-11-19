@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : JOEL
 */
 
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
 /*css for header img*/
 .container-fluid {
     padding-left: 0px !important;
@@ -27,7 +31,6 @@ and open the template in the editor.
 .figimage {
     width: 100%;
     height: auto !important;
-    padding-top: 40px;
 }
 
 /*CSS for footer*/

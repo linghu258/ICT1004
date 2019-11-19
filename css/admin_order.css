@@ -1,13 +1,21 @@
 /* To change this license header, choose License Headers in Project Properties. To change this template file, choose Tools | Templates and open the template in the editor. */
 /* Created on : 29 Sep, 2019, 11:50:29 PM Author : Jayce*/
 
-body{
-    background-image: none; 
+header {
+    padding: 30px;
+}
+
+body {
+    height: 100%;
     position: relative;
 }
 
-header {
-    padding: 50px;
+.page-container{
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px; /* height of your footer */
 }
 
 .jumbotron {
@@ -19,6 +27,11 @@ header {
     color: black;
 }
 
+#textHeadings{
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.1;
+}
 
 h2{
     text-transform: uppercase;
@@ -52,8 +65,9 @@ h2{
 }
 
 #adminFooter{
-    position: fixed;
+    position: absolute;
     bottom: 0;
+    width: 100%;
 }
 
 /* Admin Account Page */
