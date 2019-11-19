@@ -26,6 +26,8 @@ and open the template in the editor.
             include "navbar.inc.php";
         ?>
         
+        <main>
+        
         <section class="container-fluid imgcontainer">
             <img class="figimage" src="image/ABOUTUS.PNG" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
@@ -91,6 +93,8 @@ and open the template in the editor.
             </article>
         </section>
         
+        </main> 
+            
         <?php
             include "footer.inc.php";
         ?>
