@@ -2,7 +2,7 @@
 <html lang="en">  
     <head>
         <title>TUMMY FOR YUMMY</title>
-        <link rel="icon" href="image/1004 Logo 2.png">
+        <link rel="icon" href="image/1004_Logo_2.png">
         <meta name="description" content="YUM-YUM's restaurant and catering services food menu. We provide a huge selection of dishes, including vegetarian!">
         <meta name="keywords" content="restaurant, catering, menu, vegetarian, food">
         <meta charset="UTF-8">
@@ -21,10 +21,10 @@
         <?php
         include "navbar.inc.php";
         ?>
-        <section class="container-fluid imgcontainer">
+        <div class="container-fluid imgcontainer">
             <img class="figimage" src="image/CATERING.png" alt="topimage">
             <!--Url: https://www.flickr.com/photos/inthe-arena/13727335133/in/explore-2014-04-08 | Title: Takito | Author: Seaman Andrea | Publish: April,2014 | Publisher: Flickr | Visted: October 5, 2019-->
-        </section>
+        </div>
         <main>
         <div class="container">
             <?php
