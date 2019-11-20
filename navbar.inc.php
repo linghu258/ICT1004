@@ -13,7 +13,7 @@
             <section class="container">
                 <section class="navbar-header">
                     <a class="navbar-brand" href="index.php">YUM-YUM</a>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" title="dropdown list">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
